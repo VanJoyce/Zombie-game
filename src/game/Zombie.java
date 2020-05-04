@@ -29,6 +29,12 @@ public class Zombie extends ZombieActor {
 
 	@Override
 	public IntrinsicWeapon getIntrinsicWeapon() {
+		//
+		double biting_chances = Math.random();
+		if (biting_chances>=0.5) {
+			return new IntrinsicWeapon(15,"bites");
+		}
+		//
 		return new IntrinsicWeapon(10, "punches");
 	}
 

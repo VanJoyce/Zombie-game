@@ -36,15 +36,28 @@ public class AttackAction extends Action {
 	public String execute(Actor actor, GameMap map) {
 
 		Weapon weapon = actor.getWeapon();
-
-		if (rand.nextBoolean()) {
-			return actor + " misses " + target + ".";
+		//made by jaclyn
+		if(actor.getClass()==Zombie.class && weapon.verb().equals("bites")) {
+			if(rand.nextDouble()<0.75) {
+				return actor + " misses " + target + ".";
+			}
+		
+			else {
+				actor.heal(5);
+			}
 		}
+		else {
+			if (rand.nextBoolean()) {
+				return actor + " misses " + target + ".";
+			}
+		};
+		//
 
 		int damage = weapon.damage();
 		String result = actor + " " + weapon.verb() + " " + target + " for " + damage + " damage.";
-
+		
 		target.hurt(damage);
+
 		if (!target.isConscious()) {
 			Item corpse = new PortableItem("dead " + target, '%');
 			map.locationOf(target).addItem(corpse);
