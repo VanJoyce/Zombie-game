@@ -67,7 +67,7 @@ public class Application {
 		
 		// place a simple weapon
 		gameMap.at(74, 20).addItem(new Plank());
-		gameMap.at(30, 21).addItem(new Plank());
+		gameMap.at(42, 16).addItem(new Plank());
 
 		
 		// FIXME: Add more zombies!

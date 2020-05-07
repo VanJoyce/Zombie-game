@@ -37,49 +37,73 @@ public class AttackAction extends Action {
 
 		Weapon weapon = actor.getWeapon();
 		//made by jaclyn
-		if(actor.getClass()==Zombie.class) && weapon.verb().equals("bites")) {
-			if(rand.nextDouble()<0.75) {
-				return actor + " misses " + target + ".";
+		//Zombie
+		if(actor.getClass()==Zombie.class) {
+			if(weapon.verb().equals("bites")) {
+				if(rand.nextDouble()<0.75) {
+					return actor + " misses " + target + ".";
+				}
+				else {
+					actor.heal(5);
+				}
 			}
-		
-			else {
-				actor.heal(5);
-			}
-		}
-		else {
-			if (rand.nextBoolean()) {
-				return actor + " misses " + target + ".";
-			}
-			else {
-				if(target.getClass()==Zombie.class) {
-					if(rand.nextDouble()<=0.25) {
-						String limb=((Zombie) target).zombieLoseLimbs();
-						
-						//if limb=hand
-						if(limb.substring(limb.length()-4, limb.length()-1).equals("Hand")) {
-							//50% drop of item
-							if (((Zombie) target).zombieGetNoOfHands()==1) {
-								if(rand.nextDouble()>0.5) {
-									int size=((Zombie)target).getInventory().size();
-									((Zombie) target).removeItemFromInventory(((Zombie)target).getInventory().get(rand.nextInt(size)));
-								}
-							}
-							//100% drop of item
-							else {
-								for(Item item:target.getInventory()) {
-									((Zombie) target).removeItemFromInventory(item);
-								}
-							}
-						}
-
-						//if limb=leg
-						else {
-							((Zombie) target).lossLegs();
-						}
+			else if(weapon.verb().equals("punches")) {
+				if (((Zombie)actor).zombieGetNoOfHands()==0) {
+					return actor + " misses " + target + ".";
+				}
+				else if (((Zombie)actor).zombieGetNoOfHands()==1) {
+					if(rand.nextDouble()<0.75) {
+						return actor + " misses " + target + ".";
+					}
+				}
+				else if (((Zombie)actor).zombieGetNoOfHands()==2) {
+					if (rand.nextBoolean()) {
+						return actor + " misses " + target + ".";
 					}
 				}
 			}
-		};
+		}
+			
+		//Human
+		else {
+			if (rand.nextBoolean()){
+				return actor + " misses " + target + ".";
+			}
+			else {
+				if(rand.nextDouble()<=0.25) {
+					String limb=((Zombie) target).zombieLoseLimbs();
+					System.out.println(target+" loses "+limb);
+						
+					//if limb=hand
+					if(limb.substring(limb.length()-4, limb.length()-1).equals("Hand")) {
+						
+						Item hand = new PortableItem("zombieHand " + target, 'H');
+						map.locationOf(target).addItem(hand);
+						
+						//50% drop of item
+						if (((Zombie) target).zombieGetNoOfHands()==1) {
+							if(rand.nextDouble()>0.5) {
+								int size=((Zombie)target).getInventory().size();
+								((Zombie) target).removeItemFromInventory(((Zombie)target).getInventory().get(rand.nextInt(size)));
+							}
+						}
+						//100% drop of item
+						else {
+							for(Item item:target.getInventory()) {
+								((Zombie) target).removeItemFromInventory(item);
+							}
+						}
+					}
+
+					//if limb=leg
+					else {
+						Item leg = new PortableItem("zombieLeg " + target, 'L');
+						map.locationOf(target).addItem(leg);
+						((Zombie) target).lossLegs();
+					}
+				}
+			}
+		}
 		//
 
 		int damage = weapon.damage();

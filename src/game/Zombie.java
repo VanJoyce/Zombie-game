@@ -59,25 +59,25 @@ public class Zombie extends ZombieActor {
 		}
 		//if zombie got 0 leg
 		if(zombieGetNoOfLegs()==0) {
-			return getActionForNotMoving();
+			return getActionForNotMoving(map);
 		}
 		//if zombie got 1 leg
 		else if(zombieGetNoOfLegs()==1) {
 			if (counter%2==0) {
 				counter+=1;
-				return getActionForMoving();
+				return getActionForMoving(map);
 			}
 			else {
 				counter+=1;
-				return getActionForNotMoving();
+				return getActionForNotMoving(map);
 			}
 		}
 		
 		else {
-			return getActionForMoving();
+			return getActionForMoving(map);
 		}
 	}
-	public Action getActionForMoving() {
+	public Action getActionForMoving(GameMap map) {
 		for (Behaviour behaviour : behaviours) {
 			Action action = behaviour.getAction(this, map);
 			if (action != null)
@@ -86,7 +86,7 @@ public class Zombie extends ZombieActor {
 		return new DoNothingAction();
 	}
 	
-	public Action getActionForNotMoving() {
+	public Action getActionForNotMoving(GameMap map) {
 		for (int i=0;i<1;i++) {
 			Action action = behaviours[i].getAction(this, map);
 			if (action != null)
