@@ -37,7 +37,7 @@ public class AttackAction extends Action {
 
 		Weapon weapon = actor.getWeapon();
 		//made by jaclyn
-		if(actor.getClass()==Zombie.class && weapon.verb().equals("bites")) {
+		if(actor.getClass()==Zombie.class) && weapon.verb().equals("bites")) {
 			if(rand.nextDouble()<0.75) {
 				return actor + " misses " + target + ".";
 			}
@@ -49,6 +49,35 @@ public class AttackAction extends Action {
 		else {
 			if (rand.nextBoolean()) {
 				return actor + " misses " + target + ".";
+			}
+			else {
+				if(target.getClass()==Zombie.class) {
+					if(rand.nextDouble()<=0.25) {
+						String limb=((Zombie) target).zombieLoseLimbs();
+						
+						//if limb=hand
+						if(limb.substring(limb.length()-4, limb.length()-1).equals("Hand")) {
+							//50% drop of item
+							if (((Zombie) target).zombieGetNoOfHands()==1) {
+								if(rand.nextDouble()>0.5) {
+									int size=((Zombie)target).getInventory().size();
+									((Zombie) target).removeItemFromInventory(((Zombie)target).getInventory().get(rand.nextInt(size)));
+								}
+							}
+							//100% drop of item
+							else {
+								for(Item item:target.getInventory()) {
+									((Zombie) target).removeItemFromInventory(item);
+								}
+							}
+						}
+
+						//if limb=leg
+						else {
+							((Zombie) target).lossLegs();
+						}
+					}
+				}
 			}
 		};
 		//

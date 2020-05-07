@@ -3,12 +3,20 @@ package game;
 import java.util.ArrayList;
 
 public class ZombieLimbs {
-	private ArrayList<String> zombieLimbs= {"rightHand","leftHand","rightLeg","leftLeg"};
+	private ArrayList<String> zombieLimbs= setZombieLimbs();	
 	private int noOfHands=2;
 	private int noOfLegs=2;
 	private int noOfLimbs=4;
 	
-	public void loseLimbs() {
+	public ArrayList<String> setZombieLimbs() {
+		ArrayList<String> zombieLimb= new ArrayList<String>(4);
+		zombieLimb.add("rightHand");
+		zombieLimb.add("leftHand");
+		zombieLimb.add("rightLeg");
+		zombieLimb.add("leftLeg");
+		return zombieLimb;
+	}
+	public String loseLimbs() {
 		int limbIndex=(int)Math.random()*((noOfLimbs)-0)+0;
 		String limb=zombieLimbs.get(limbIndex);
 		zombieLimbs.remove(limbIndex);
@@ -21,8 +29,18 @@ public class ZombieLimbs {
 			noOfLegs-=1;
 			noOfLimbs-=1;
 		}
-		
+		return limb;
 	}
-			
 	
+	public int getNoOfHands() {
+		return noOfHands;
+	}
+	
+	public int getNoOfLegs() {
+		return noOfLegs;
+	}
+	
+	public int getNoOfLimbs() {
+		return noOfLimbs;
+	}	
 }

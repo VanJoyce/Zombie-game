@@ -16,12 +16,16 @@ import edu.monash.fit2099.engine.IntrinsicWeapon;
  *
  */
 public class Zombie extends ZombieActor {
+	private int counter=0;
 	private Behaviour[] behaviours = {
 			new AttackBehaviour(ZombieCapability.ALIVE),
 			new HuntBehaviour(Human.class, 10),
 			new WanderBehaviour()
 	};
-
+	//	7/5/2020 12.24pm
+	private ZombieLimbs zombieLimbs=new ZombieLimbs();
+	//
+	
 	public Zombie(String name) {
 		super(name, 'Z', 100, ZombieCapability.UNDEAD);
 	}
@@ -49,11 +53,65 @@ public class Zombie extends ZombieActor {
 	 */
 	@Override
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
+		double say=Math.random();
+		if (say<=0.10) {
+			System.out.println("Braaaaaains");
+		}
+		//if zombie got 0 leg
+		if(zombieGetNoOfLegs()==0) {
+			return getActionForNotMoving();
+		}
+		//if zombie got 1 leg
+		else if(zombieGetNoOfLegs()==1) {
+			if (counter%2==0) {
+				counter+=1;
+				return getActionForMoving();
+			}
+			else {
+				counter+=1;
+				return getActionForNotMoving();
+			}
+		}
+		
+		else {
+			return getActionForMoving();
+		}
+	}
+	public Action getActionForMoving() {
 		for (Behaviour behaviour : behaviours) {
 			Action action = behaviour.getAction(this, map);
 			if (action != null)
 				return action;
 		}
-		return new DoNothingAction();	
+		return new DoNothingAction();
+	}
+	
+	public Action getActionForNotMoving() {
+		for (int i=0;i<1;i++) {
+			Action action = behaviours[i].getAction(this, map);
+			if (action != null)
+				return action;
+		}
+		return new DoNothingAction();
+	}
+	
+	public String zombieLoseLimbs() {
+		return zombieLimbs.loseLimbs();
+	}
+	
+	public int zombieGetNoOfHands() {
+		return zombieLimbs.getNoOfHands();
+	}
+	
+	public int zombieGetNoOfLegs() {
+		return zombieLimbs.getNoOfLegs();
+	}
+	
+	public int zombieGetNoOfLimbs() {
+		return zombieLimbs.getNoOfLimbs();
+	}
+	
+	public void lossLegs(){
+		counter+=1;
 	}
 }
