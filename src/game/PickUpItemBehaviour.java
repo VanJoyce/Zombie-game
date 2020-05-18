@@ -30,10 +30,8 @@ public class PickUpItemBehaviour implements Behaviour{
 					return new PickUpItemAction(item);
 				}
 			}
-			System.out.println("null 1 returned");
 			return null;
 		}
-		System.out.println("null 2 returned");
 		return null;		
 	}
 

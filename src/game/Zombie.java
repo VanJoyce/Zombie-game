@@ -32,6 +32,7 @@ public class Zombie extends ZombieActor {
 	private int noOfHands=2;
 	private int noOfLegs=2;
 	private int noOfLimbs=4;
+
 	//private ZombieLimbs zombieLimbs=new ZombieLimbs();
 	//
 	

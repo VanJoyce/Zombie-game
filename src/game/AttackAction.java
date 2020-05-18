@@ -70,7 +70,7 @@ public class AttackAction extends Action {
 				return actor + " misses " + target + ".";
 			}
 			else {
-				if(rand.nextDouble()<=0.25) {
+				if(rand.nextDouble()<=0.25 & ((Zombie) target).getNoOfLimbs()>0) {
 					String limb=((Zombie) target).loseLimbs();
 					System.out.println(target+" loses "+limb);
 						
