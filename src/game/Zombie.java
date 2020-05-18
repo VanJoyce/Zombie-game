@@ -1,11 +1,14 @@
 package game;
 
+import java.util.ArrayList;
+
 import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actions;
 import edu.monash.fit2099.engine.Display;
 import edu.monash.fit2099.engine.DoNothingAction;
 import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.IntrinsicWeapon;
+import edu.monash.fit2099.engine.WeaponItem;
 
 /**
  * A Zombie.
@@ -18,12 +21,18 @@ import edu.monash.fit2099.engine.IntrinsicWeapon;
 public class Zombie extends ZombieActor {
 	private int counter=0;
 	private Behaviour[] behaviours = {
+			new PickUpItemBehaviour(WeaponItem.class),
 			new AttackBehaviour(ZombieCapability.ALIVE),
 			new HuntBehaviour(Human.class, 10),
 			new WanderBehaviour()
 	};
 	//	7/5/2020 12.24pm
-	private ZombieLimbs zombieLimbs=new ZombieLimbs();
+	
+	private ArrayList<String> zombieLimbs= setZombieLimbs();	
+	private int noOfHands=2;
+	private int noOfLegs=2;
+	private int noOfLimbs=4;
+	//private ZombieLimbs zombieLimbs=new ZombieLimbs();
 	//
 	
 	public Zombie(String name) {
@@ -58,11 +67,11 @@ public class Zombie extends ZombieActor {
 			System.out.println("Braaaaaains");
 		}
 		//if zombie got 0 leg
-		if(zombieGetNoOfLegs()==0) {
+		if(getNoOfLegs()==0) {
 			return getActionForNotMoving(map);
 		}
 		//if zombie got 1 leg
-		else if(zombieGetNoOfLegs()==1) {
+		else if(getNoOfLegs()==1) {
 			if (counter%2==0) {
 				counter+=1;
 				return getActionForMoving(map);
@@ -87,7 +96,7 @@ public class Zombie extends ZombieActor {
 	}
 	
 	public Action getActionForNotMoving(GameMap map) {
-		for (int i=0;i<1;i++) {
+		for (int i=0;i<2;i++) {
 			Action action = behaviours[i].getAction(this, map);
 			if (action != null)
 				return action;
@@ -95,23 +104,44 @@ public class Zombie extends ZombieActor {
 		return new DoNothingAction();
 	}
 	
-	public String zombieLoseLimbs() {
-		return zombieLimbs.loseLimbs();
+	public ArrayList<String> setZombieLimbs() {
+		ArrayList<String> zombieLimb= new ArrayList<String>(4);
+		zombieLimb.add("rightHand");
+		zombieLimb.add("leftHand");
+		zombieLimb.add("rightLeg");
+		zombieLimb.add("leftLeg");
+		return zombieLimb;
 	}
 	
-	public int zombieGetNoOfHands() {
-		return zombieLimbs.getNoOfHands();
+	public String loseLimbs() {
+		int limbIndex=(int)(Math.random()*((noOfLimbs)-0)+0);
+		String limb=zombieLimbs.get(limbIndex);
+		zombieLimbs.remove(limbIndex);
+		if(limb.substring(limb.length()-4, limb.length()-1).equals("Hand")){
+			noOfHands-=1;
+			noOfLimbs-=1;
+					
+		}
+		else {
+			noOfLegs-=1;
+			noOfLimbs-=1;
+		}
+		return limb;
 	}
 	
-	public int zombieGetNoOfLegs() {
-		return zombieLimbs.getNoOfLegs();
+	public int getNoOfHands() {
+		return noOfHands;
 	}
 	
-	public int zombieGetNoOfLimbs() {
-		return zombieLimbs.getNoOfLimbs();
+	public int getNoOfLegs() {
+		return noOfLegs;
 	}
 	
-	public void lossLegs(){
+	public int getNoOfLimbs() {
+		return noOfLimbs;
+	}
+	
+	public void lossLegs() {
 		counter+=1;
 	}
 }

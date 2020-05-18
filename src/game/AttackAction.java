@@ -48,15 +48,15 @@ public class AttackAction extends Action {
 				}
 			}
 			else if(weapon.verb().equals("punches")) {
-				if (((Zombie)actor).zombieGetNoOfHands()==0) {
+				if (((Zombie)actor).getNoOfHands()==0) {
 					return actor + " misses " + target + ".";
 				}
-				else if (((Zombie)actor).zombieGetNoOfHands()==1) {
+				else if (((Zombie)actor).getNoOfHands()==1) {
 					if(rand.nextDouble()<0.75) {
 						return actor + " misses " + target + ".";
 					}
 				}
-				else if (((Zombie)actor).zombieGetNoOfHands()==2) {
+				else if (((Zombie)actor).getNoOfHands()==2) {
 					if (rand.nextBoolean()) {
 						return actor + " misses " + target + ".";
 					}
@@ -71,7 +71,7 @@ public class AttackAction extends Action {
 			}
 			else {
 				if(rand.nextDouble()<=0.25) {
-					String limb=((Zombie) target).zombieLoseLimbs();
+					String limb=((Zombie) target).loseLimbs();
 					System.out.println(target+" loses "+limb);
 						
 					//if limb=hand
@@ -81,7 +81,7 @@ public class AttackAction extends Action {
 						map.locationOf(target).addItem(hand);
 						
 						//50% drop of item
-						if (((Zombie) target).zombieGetNoOfHands()==1) {
+						if (((Zombie) target).getNoOfHands()==1) {
 							if(rand.nextDouble()>0.5) {
 								int size=((Zombie)target).getInventory().size();
 								((Zombie) target).removeItemFromInventory(((Zombie)target).getInventory().get(rand.nextInt(size)));
