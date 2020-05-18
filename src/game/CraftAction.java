@@ -8,30 +8,30 @@ import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Item;
 
 public class CraftAction extends Action{
-	public CraftAction(FallenZombiePart zombieLimb) {}
+	
+	private FallenZombiePart zombieLimb;
+	
+	public CraftAction(FallenZombiePart zombieLimb) {
+		this.zombieLimb=zombieLimb;
+	}
 
 	@Override
 	public String execute(Actor actor, GameMap map) {
 		// TODO Auto-generated method stub
-		List<Item> inventory=actor.getInventory();
-		for(Item item:inventory) {
-			if(item.getClass().equals(FallenZombiePart.class)){
-				actor.removeItemFromInventory(item);
-				if(((FallenZombiePart)item).getBodyType()=='H'){
-					((Actor) inventory).addItemToInventory(new ZombieClub(item.name+" Weapon",item.displayChar,15,"whacks"))
-				}
-				else if(((FallenZombiePart)item).getBodyType()=='L'){
-					((Actor) inventory).addItemToInventory(new ZombieMaze(item.name+" Weapon",item.displayChar,15,"whacks"))
-				}
-			}
+		actor.removeItemFromInventory(zombieLimb);
+		if(zombieLimb.getBodyType()=='H'){
+			actor.addItemToInventory(new ZombieClubs(zombieLimb.getName()+" Weapon",zombieLimb.getDisplayChar(),15,"whackzs"));
 		}
-		return null;
+		else if(zombieLimb.getBodyType()=='L'){
+			actor.addItemToInventory(new ZombieMaze(zombieLimb.getName()+" Weapon",zombieLimb.getDisplayChar(),20,"whackzzsss"));
+		}
+		return zombieLimb.getName()+" Weapon";
 	}
 
 	@Override
 	public String menuDescription(Actor actor) {
 		// TODO Auto-generated method stub
-		return null;
+		return actor+" creates new Weapon: "+ zombieLimb.getName()+" Weapon";
 	}
 
 }

@@ -20,4 +20,11 @@ public class FallenZombiePart extends PortableItem{
 	public char getBodyType() {
 		return bodyPartType;
 	}
+	
+	public String getName() {
+		return name;
+	}
+	public char getDisplayChar() {
+		return displayChar;
+	}
 }
