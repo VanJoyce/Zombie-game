@@ -1,6 +1,5 @@
 package game;
 
-import edu.monash.fit2099.engine.Ground;
 import edu.monash.fit2099.engine.Location;
 
 /**
@@ -9,8 +8,7 @@ import edu.monash.fit2099.engine.Location;
  * @author ram
  *
  */
-public class Tree extends Ground {
-	private int age = 0;
+public class Tree extends GrowableGround {
 
 	public Tree() {
 		super('+');
@@ -18,12 +16,6 @@ public class Tree extends Ground {
 
 	@Override
 	public void tick(Location location) {
-		super.tick(location);
-
-		age++;
-		if (age == 10)
-			displayChar = 't';
-		if (age == 20)
-			displayChar = 'T';
+		super.tick(location, 't','T');
 	}
 }
