@@ -1,9 +1,13 @@
 package game;
 
+import java.util.List;
+
 import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actions;
+import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.Display;
 import edu.monash.fit2099.engine.GameMap;
+import edu.monash.fit2099.engine.Item;
 import edu.monash.fit2099.engine.Menu;
 
 /**
@@ -30,5 +34,18 @@ public class Player extends Human {
 		if (lastAction.getNextAction() != null)
 			return lastAction.getNextAction();
 		return menu.showMenu(this, actions, display);
+	}
+	
+	public Actions getAllowableActions(Actor otherActor, String direction, GameMap map) {
+		Actions list = super.getAllowableActions(otherActor, direction, map);
+		List<Item> inventory= super.getInventory();
+		for(Item item:inventory) {
+			System.out.print(item.getClass());
+			if(item.getClass().equals(FallenZombiePart.class)) {
+				System.out.println("Hello");
+				list.add(new CraftAction((FallenZombiePart) item));
+			}
+		}
+		return list;
 	}
 }

@@ -25,7 +25,7 @@ public class CraftAction extends Action{
 		else if(zombieLimb.getBodyType()=='L'){
 			actor.addItemToInventory(new ZombieMaze(zombieLimb.getName()+" Weapon",zombieLimb.getDisplayChar(),20,"whackzzsss"));
 		}
-		return zombieLimb.getName()+" Weapon";
+		return menuDescription(actor);
 	}
 
 	@Override

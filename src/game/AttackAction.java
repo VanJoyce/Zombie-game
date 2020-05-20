@@ -77,7 +77,7 @@ public class AttackAction extends Action {
 					//if limb=hand
 					if(limb.substring(limb.length()-4, limb.length()-1).equals("Hand")) {
 						
-						Item hand = new PortableItem("zombieHand " + target, 'H');
+						Item hand = new FallenZombiePart("zombieHand " + target, 'H','H');
 						map.locationOf(target).addItem(hand);
 						
 						//50% drop of item
@@ -97,7 +97,7 @@ public class AttackAction extends Action {
 
 					//if limb=leg
 					else {
-						Item leg = new PortableItem("zombieLeg " + target, 'L');
+						Item leg = new FallenZombiePart("zombieLeg " + target, 'L','L');
 						map.locationOf(target).addItem(leg);
 						((Zombie) target).lossLegs();
 					}
