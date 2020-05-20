@@ -11,6 +11,7 @@ public class FallenZombiePart extends PortableItem{
 	public FallenZombiePart(String name, char displayChar,char bodyPartType) {
 		super(name, displayChar);
 		this.bodyPartType=bodyPartType;
+		this.allowableActions.add(new CraftAction(this));
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -24,10 +25,10 @@ public class FallenZombiePart extends PortableItem{
 	public char getDisplayChar() {
 		return displayChar;
 	}
-	/*
+	
 	public CraftAction getCraftAction() {
 		//allowableActions.add(new CraftAction(this));
 		return new CraftAction(this);
 	}
-	*/
+	
 }

@@ -35,12 +35,13 @@ public class Player extends Human {
 			return lastAction.getNextAction();
 		return menu.showMenu(this, actions, display);
 	}
-	
+	/*
 	public Actions getAllowableActions(Actor otherActor, String direction, GameMap map) {
+		System.out.println("checker"+otherActor);
 		Actions list = super.getAllowableActions(otherActor, direction, map);
 		List<Item> inventory= super.getInventory();
 		for(Item item:inventory) {
-			System.out.print(item.getClass());
+			System.out.println(item.getClass());
 			if(item.getClass().equals(FallenZombiePart.class)) {
 				System.out.println("Hello");
 				list.add(new CraftAction((FallenZombiePart) item));
@@ -48,4 +49,5 @@ public class Player extends Human {
 		}
 		return list;
 	}
+	*/
 }
