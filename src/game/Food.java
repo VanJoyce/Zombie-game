@@ -16,7 +16,7 @@ public class Food extends PortableItem{
 	 * Constructor for Food. displayChar is 'G' and Food can heal.
 	 */
 	public Food(int healPoints) {
-		super("food", 'G');
+		super("food", 'O');
 		this.healPoints = healPoints;
 		this.allowableActions.add(new HealAction(this, healPoints));
 	}

@@ -20,6 +20,10 @@ public abstract class GrowableGround extends Ground {
 		super(displayChar);
 	}
 	
+	public int getAge() {
+		return age;
+	}
+	
 	/**
 	 * Changes display character when its age reaches 10 and changes again when age reaches 20.
 	 * 

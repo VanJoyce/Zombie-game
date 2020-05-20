@@ -44,11 +44,11 @@ public class Crop extends GrowableGround{
 	public Actions allowableActions(Actor actor, Location location, String direction) {
 		if (displayChar == YOUNG_DISPLAY || displayChar == MID_DISPLAY) {
 			if(actor.getClass() == Farmer.class) {
-				return new Actions(FertilizeAction());
+				return new Actions(new FertilizeAction(location));
 			}
 		} else {
 			if (actor.getClass() == Farmer.class || actor.getClass() == Player.class) {
-				return new Actions(HarvestAction());
+				return new Actions(new HarvestAction(location));
 			}
 		}
 		return new Actions();

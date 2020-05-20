@@ -13,7 +13,12 @@ import edu.monash.fit2099.engine.GameMap;
  */
 public class Farmer extends Human{
 	private Behaviour[] behaviours = {
-			//TODO: add farming behaviours
+			new PickUpItemBehaviour(Food.class),
+			new HuntBehaviour(Food.class, 5),
+			new HarvestBehaviour(),
+			new FertilizeBehaviour(),
+			new SowBehaviour(),
+			new WanderBehaviour()
 	};
 	
 	/**
@@ -37,12 +42,22 @@ public class Farmer extends Human{
 	 * @param map the map where the current Farmer is
 	 * @param display the Display where the Farmer's actions are shown
 	 */
-	@Override
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
+		int skipBehaviours = 0;
+		// If their health falls below 50%
+		if (this.hitPoints/this.maxHitPoints < 0.5) {
+			skipBehaviours = 2;
+		}
+		
 		for (Behaviour behaviour : behaviours) {
-			Action action = behaviour.getAction(this, map);
-			if (action != null)
-				return action;
+			if (this.hitPoints/this.maxHitPoints < 0.5) {
+				skipBehaviours--;
+				continue;
+			} else {
+				Action action = behaviour.getAction(this, map);
+				if (action != null)
+					return action;
+			}
 		}
 		return new DoNothingAction();
 	}

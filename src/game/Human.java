@@ -3,6 +3,7 @@ package game;
 import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actions;
 import edu.monash.fit2099.engine.Display;
+import edu.monash.fit2099.engine.DoNothingAction;
 import edu.monash.fit2099.engine.GameMap;
 
 /**
@@ -13,7 +14,11 @@ import edu.monash.fit2099.engine.GameMap;
  *
  */
 public class Human extends ZombieActor {
-	private Behaviour behaviour = new WanderBehaviour();
+	private Behaviour[] behaviours = {
+			new PickUpItemBehaviour(Food.class),
+			new HuntBehaviour(Food.class, 5),
+			new WanderBehaviour()
+	};
 
 	/**
 	 * The default constructor creates default Humans
@@ -39,7 +44,25 @@ public class Human extends ZombieActor {
 	@Override
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
 		// FIXME humans are pretty dumb, maybe they should at least run away from zombies?
-		return behaviour.getAction(this, map);
+		
+		int skipBehaviours = 0;
+		// If their health falls below 50%
+		if (this.hitPoints/this.maxHitPoints < 0.5) {
+			skipBehaviours = 2;
+		}
+		
+		for (Behaviour behaviour : behaviours) {
+			if (this.hitPoints/this.maxHitPoints < 0.5) {
+				skipBehaviours--;
+				continue;
+			} else {
+				Action action = behaviour.getAction(this, map);
+				if (action != null)
+					return action;
+			}
+		}
+		return new DoNothingAction();
+//		return behaviour.getAction(this, map);
 	}
 
 }
