@@ -70,14 +70,14 @@ public class AttackAction extends Action {
 				return actor + " misses " + target + ".";
 			}
 			else {
-				if(rand.nextDouble()<=0.25 & ((Zombie) target).getNoOfLimbs()>0) {
+				if(rand.nextDouble()<=1.0 & ((Zombie) target).getNoOfLimbs()>0) {
 					String limb=((Zombie) target).loseLimbs();
 					System.out.println(target+" loses "+limb);
 						
 					//if limb=hand
 					if(limb.substring(limb.length()-4, limb.length()-1).equals("Hand")) {
 						
-						Item hand = new FallenZombiePart("zombieHand " + target, 'H','H');
+						Item hand = new FallenZombiePart(target + " " + limb, 'H','H');
 						map.locationOf(target).addItem(hand);
 						
 						//50% drop of item
@@ -97,7 +97,7 @@ public class AttackAction extends Action {
 
 					//if limb=leg
 					else {
-						Item leg = new FallenZombiePart("zombieLeg " + target, 'L','L');
+						Item leg = new FallenZombiePart(target+ " " + limb, 'L','L');
 						map.locationOf(target).addItem(leg);
 						((Zombie) target).lossLegs();
 					}

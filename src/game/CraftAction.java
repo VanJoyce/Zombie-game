@@ -20,10 +20,10 @@ public class CraftAction extends Action{
 		// TODO Auto-generated method stub
 		actor.removeItemFromInventory(zombieLimb);
 		if(zombieLimb.getBodyType()=='H'){
-			actor.addItemToInventory(new ZombieClubs(zombieLimb.getName()+" Weapon",zombieLimb.getDisplayChar(),15,"whackzs"));
+			actor.addItemToInventory(new ZombieClubs(zombieLimb.getName()+" Weapon"));
 		}
 		else if(zombieLimb.getBodyType()=='L'){
-			actor.addItemToInventory(new ZombieMaze(zombieLimb.getName()+" Weapon",zombieLimb.getDisplayChar(),20,"whackzzsss"));
+			actor.addItemToInventory(new ZombieMace(zombieLimb.getName()+" Weapon"));
 		}
 		return menuDescription(actor);
 	}
