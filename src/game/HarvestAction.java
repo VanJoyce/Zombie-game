@@ -38,7 +38,7 @@ public class HarvestAction extends Action {
 		} else {
 			actor.addItemToInventory(food);
 		}
-		return actor + "harvested a crop.";
+		return actor + " harvested a crop.";
 	}
 
 	/**

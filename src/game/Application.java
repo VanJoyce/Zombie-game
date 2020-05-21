@@ -78,7 +78,7 @@ public class Application {
 		
 		// place a simple weapon
 		gameMap.at(74, 20).addItem(new Plank());
-		gameMap.at(42, 16).addItem(new Plank());
+//		gameMap.at(42, 16).addItem(new Plank());
 		
 		gameMap.at(31, 19).addItem(new Plank());
 		gameMap.at(31, 20).addItem(new Plank());
@@ -96,7 +96,7 @@ public class Application {
 		gameMap.at(10,  4).addActor(new Zombie("Uuuurgh"));
 		gameMap.at(50, 18).addActor(new Zombie("Mortalis"));
 		gameMap.at(1, 10).addActor(new Zombie("Gaaaah"));
-		gameMap.at(62, 12).addActor(new Zombie("Aaargh"));	
+		gameMap.at(62, 12).addActor(new Zombie("Aaargh"));
 		world.run();
 	}
 }
