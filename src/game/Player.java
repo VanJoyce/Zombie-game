@@ -30,6 +30,13 @@ public class Player extends Human {
 
 	@Override
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
+		//
+		for (int i=0;i<super.getInventory().size();i++) {
+			if (super.getInventory().get(i) instanceof FallenZombiePart) {
+				actions.add(new CraftAction((FallenZombiePart) super.getInventory().get(i)));
+			}
+		}
+		//
 		// Handle multi-turn Actions
 		if (lastAction.getNextAction() != null)
 			return lastAction.getNextAction();
