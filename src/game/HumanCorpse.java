@@ -86,7 +86,7 @@ public class HumanCorpse extends PortableItem{
 		}
 		
 		if (rand.nextDouble() < chance) {
-			Zombie zombie = new Zombie("Undead " + this.toString());
+			Zombie zombie = new Zombie("Un" + this.toString());
 			try {
 				location.addActor(zombie);
 			} catch (Exception e) { 

@@ -10,19 +10,19 @@ import edu.monash.fit2099.engine.Location;
  *
  */
 public class Crop extends GrowableGround{
-	static final char YOUNG_DISPLAY = 'v';
-	static final char MID_DISPLAY = 'V';
-	static final char OLD_DISPLAY = 'Y';
+	static final char YOUNG_DISPLAY = '=';
+	static final char MID_DISPLAY = '<';
+	static final char OLD_DISPLAY = '*';
 	
 	/**
-	 * Constructs a crop. Crop is displayed as 'v' when first planted.
+	 * Constructs a crop.
 	 */
 	public Crop() {
 		super(YOUNG_DISPLAY);
 	}
 	
 	/**
-	 * As the crop ripens, its display character changes. From 'v' to 'V' to 'Y'
+	 * As the crop ripens, its display character changes.
 	 * 
 	 * @param location the location of the crop
 	 */
@@ -42,15 +42,19 @@ public class Crop extends GrowableGround{
 	 */
 	@Override
 	public Actions allowableActions(Actor actor, Location location, String direction) {
-		if (displayChar == YOUNG_DISPLAY || displayChar == MID_DISPLAY) {
-			if(actor.getClass() == Farmer.class) {
-				return new Actions(new FertilizeAction(location));
-			}
-		} else {
-			if (actor.getClass() == Farmer.class || actor.getClass() == Player.class) {
-				return new Actions(new HarvestAction(location));
-			}
+		if (this.getAge() > 20 && actor instanceof Player) {
+			return new Actions(new HarvestAction(location));
 		}
+		
+//		if (displayChar == YOUNG_DISPLAY || displayChar == MID_DISPLAY) {
+//			if(actor.getClass() == Farmer.class) {
+//				return new Actions(new FertilizeAction(location));
+//			}
+//		} else {
+//			if (actor.getClass() == Farmer.class || actor.getClass() == Player.class) {
+//				return new Actions(new HarvestAction(location));
+//			}
+//		}
 		return new Actions();
 	}
 }

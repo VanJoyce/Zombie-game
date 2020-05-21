@@ -28,9 +28,16 @@ public class HarvestAction extends Action {
 	 * @param actor the actor which is harvesting the crop
 	 * @param map the map on which the crop is on
 	 * @return a String displayed on console 
+	 * @throws IllegalArgumentException when an actor is standing at cropLocation
 	 */
 	@Override
-	public String execute(Actor actor, GameMap map) {
+	public String execute(Actor actor, GameMap map){
+		if (((Crop) cropLocation.getGround()).getAge() < 20) {
+			String error = actor.toString() + " couldn't harvest crop at coordinates (" + cropLocation.x() + ", " + cropLocation.y() + ")";
+			error += " because crop is too young";
+			throw new IllegalArgumentException(error);
+		}
+		
 		cropLocation.setGround(new Dirt());
 		Food food = new Food(20);
 		if (actor instanceof Farmer) {

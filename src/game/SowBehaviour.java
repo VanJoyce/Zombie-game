@@ -29,9 +29,11 @@ public class SowBehaviour implements Behaviour {
 		Collections.shuffle(exits);
 		
 		for (Exit e: exits) {
-			if (!(e.getDestination().getGround() instanceof Dirt))
-				continue;
-			if ((e.getDestination().getGround() instanceof Dirt) && (rand.nextDouble() <= 0.33)) {
+			boolean cond1 = e.getDestination().getGround() instanceof Dirt;
+			boolean cond2 = rand.nextDouble() <= 0.33;
+			boolean cond3 = !e.getDestination().containsAnActor();
+			
+			if (cond1 && cond2 && cond3) {
 				return new SowAction(e.getDestination());
 			}
 		}

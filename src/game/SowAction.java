@@ -31,6 +31,11 @@ public class SowAction extends Action{
 	 */
 	@Override
 	public String execute(Actor actor, GameMap map) {
+		if (cropLocation.containsAnActor()) {
+			String error = actor.toString() + " couldn't sow crop at coordinates (" + cropLocation.x() + ", " + cropLocation.y() + ")";
+			error += " because " + cropLocation.getActor() + " is standing there";
+			throw new IllegalArgumentException(error);
+		}
 		cropLocation.setGround(new Crop());
 		return actor + " sowed a crop.";
 	}

@@ -14,7 +14,6 @@ import edu.monash.fit2099.engine.GameMap;
 public class Farmer extends Human{
 	private Behaviour[] behaviours = {
 			new PickUpItemBehaviour(Food.class),
-			new HuntBehaviour(Food.class, 5),
 			new HarvestBehaviour(),
 			new FertilizeBehaviour(),
 			new SowBehaviour(),
@@ -31,10 +30,9 @@ public class Farmer extends Human{
 	}
 
 	/**
-	 * If a Farmer's health is less than 50% of their initial health, they should find food.
 	 * If Farmer can harvest, they should. If there is nothing to harvest nearby, the Farmer 
 	 * should fertilize the unripe crop they are standing on. If the Farmer is not standing on 
-	 * a crop, they should sow a crop on that patch of dirt or an adjacent patch of dirt.
+	 * a crop, they should sow a crop on an adjacent patch of dirt.
 	 * Otherwise, the farmer should wander.
 	 * 
 	 * @param actions list of possible Actions
@@ -43,21 +41,10 @@ public class Farmer extends Human{
 	 * @param display the Display where the Farmer's actions are shown
 	 */
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
-		int skipBehaviours = 0;
-		// If their health falls below 50%
-		if (this.hitPoints/this.maxHitPoints < 0.5) {
-			skipBehaviours = 2;
-		}
-		
 		for (Behaviour behaviour : behaviours) {
-			if (this.hitPoints/this.maxHitPoints < 0.5) {
-				skipBehaviours--;
-				continue;
-			} else {
-				Action action = behaviour.getAction(this, map);
-				if (action != null)
-					return action;
-			}
+			Action action = behaviour.getAction(this, map);
+			if (action != null)
+				return action;
 		}
 		return new DoNothingAction();
 	}

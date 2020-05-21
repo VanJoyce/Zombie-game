@@ -37,10 +37,12 @@ public class HarvestBehaviour implements Behaviour{
 		Collections.shuffle(exits);
 		
 		for (Exit e: exits) {
-			if (!(e.getDestination().getGround() instanceof Crop))
-				continue;
-			if (e.getDestination().getGround() instanceof Crop) {
-				return new HarvestAction(e.getDestination());
+			boolean cond1 = e.getDestination().getGround() instanceof Crop;
+			boolean cond2 = !e.getDestination().containsAnActor();
+			
+			if (cond1 && cond2) {
+				if (((Crop)e.getDestination().getGround()).getAge() >=20)
+					return new HarvestAction(e.getDestination());
 			}
 		}
 		return null;

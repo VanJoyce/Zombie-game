@@ -7,16 +7,15 @@ package game;
  *
  */
 public class Food extends PortableItem{
-	/**
-	 * The amount of points this Food object can heal
-	 */
 	protected int healPoints;
 	
 	/**
-	 * Constructor for Food. displayChar is 'G' and Food can heal.
+	 * Constructor for Food. Food can heal.
+	 * 
+	 * @param healPoints the number of points this food can heal
 	 */
 	public Food(int healPoints) {
-		super("food", 'O');
+		super("food", 'o');
 		this.healPoints = healPoints;
 		this.allowableActions.add(new HealAction(this, healPoints));
 	}

@@ -7,7 +7,7 @@ import edu.monash.fit2099.engine.Ground;
 import edu.monash.fit2099.engine.Location;
 
 /**
- * Action class for fertilizing crops (ageing them by 10 turns).
+ * Action class for fertilizing crops (aging them by 10 turns).
  * @author Vanessa
  *
  */
@@ -36,7 +36,7 @@ public class FertilizeAction extends Action {
 		for (int i = 1; i <= 10; i++) {
 			crop.tick(cropLocation);
 		}
-		return actor + " fertilized a crop.";
+		return actor + " fertilized a crop at (" + cropLocation.x() + ", " + cropLocation.y() + ")";
 	}
 
 	/**

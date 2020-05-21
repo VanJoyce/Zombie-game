@@ -20,6 +20,11 @@ public abstract class GrowableGround extends Ground {
 		super(displayChar);
 	}
 	
+	/**
+	 * Getter for age.
+	 * 
+	 * @return the ground's age
+	 */
 	public int getAge() {
 		return age;
 	}
@@ -35,9 +40,9 @@ public abstract class GrowableGround extends Ground {
 		super.tick(location);
 		
 		age++;
-		if (age == 10)
+		if (age >= 10)
 			displayChar = midDisplay;
-		if (age == 20)
+		if (age >= 20)
 			displayChar = olderDisplay;
 	}
 }
