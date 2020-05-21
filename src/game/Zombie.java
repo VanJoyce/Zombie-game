@@ -45,8 +45,15 @@ public class Zombie extends ZombieActor {
 	public IntrinsicWeapon getIntrinsicWeapon() {
 		//
 		double biting_chances = Math.random();
-		if (biting_chances>=0.5) {
-			return new IntrinsicWeapon(15,"bites");
+		if (noOfHands==1){
+			if (biting_chances>=0.25) {
+				return new IntrinsicWeapon(15,"bites");
+			}
+		}
+		else if(noOfHands==2) {
+			if(biting_chances>=0.5) {
+				return new IntrinsicWeapon(15,"bites");
+			}
 		}
 		//
 		return new IntrinsicWeapon(10, "punches");
@@ -87,6 +94,9 @@ public class Zombie extends ZombieActor {
 			return getActionForMoving(map);
 		}
 	}
+	//public Action getA
+	
+	
 	public Action getActionForMoving(GameMap map) {
 		for (Behaviour behaviour : behaviours) {
 			Action action = behaviour.getAction(this, map);
@@ -118,7 +128,7 @@ public class Zombie extends ZombieActor {
 		int limbIndex=(int)(Math.random()*((noOfLimbs)-0)+0);
 		String limb=zombieLimbs.get(limbIndex);
 		zombieLimbs.remove(limbIndex);
-		if(limb.substring(limb.length()-4, limb.length()-1).equals("Hand")){
+		if(limb.substring(limb.length()-4, limb.length()).equals("Hand")){
 			noOfHands-=1;
 			noOfLimbs-=1;
 					
@@ -127,6 +137,8 @@ public class Zombie extends ZombieActor {
 			noOfLegs-=1;
 			noOfLimbs-=1;
 		}
+		System.out.println(limb.substring(limb.length()-4, limb.length()));
+		System.out.println(limb+" "+getNoOfHands()+" "+getNoOfLegs());
 		return limb;
 	}
 	

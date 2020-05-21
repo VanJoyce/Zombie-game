@@ -25,11 +25,5 @@ public class FallenZombiePart extends PortableItem{
 	public char getDisplayChar() {
 		return displayChar;
 	}
-	/*
-	public CraftAction getCraftAction() {
-		//allowableActions.add(new CraftAction(this));
-		return new CraftAction(this);
-	}
-	*/
 	
 }

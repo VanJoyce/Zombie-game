@@ -38,7 +38,7 @@ public class AttackAction extends Action {
 		Weapon weapon = actor.getWeapon();
 		//made by jaclyn
 		//Zombie
-		if(actor.getClass()==Zombie.class) {
+		if(actor instanceof Zombie) {
 			if(weapon.verb().equals("bites")) {
 				if(rand.nextDouble()<0.75) {
 					return actor + " misses " + target + ".";
@@ -48,18 +48,8 @@ public class AttackAction extends Action {
 				}
 			}
 			else if(weapon.verb().equals("punches")) {
-				if (((Zombie)actor).getNoOfHands()==0) {
+				if (rand.nextBoolean()) {
 					return actor + " misses " + target + ".";
-				}
-				else if (((Zombie)actor).getNoOfHands()==1) {
-					if(rand.nextDouble()<0.75) {
-						return actor + " misses " + target + ".";
-					}
-				}
-				else if (((Zombie)actor).getNoOfHands()==2) {
-					if (rand.nextBoolean()) {
-						return actor + " misses " + target + ".";
-					}
 				}
 			}
 		}
@@ -75,7 +65,7 @@ public class AttackAction extends Action {
 					System.out.println(target+" loses "+limb);
 						
 					//if limb=hand
-					if(limb.substring(limb.length()-4, limb.length()-1).equals("Hand")) {
+					if(limb.substring(limb.length()-4, limb.length()).equals("Hand")) {
 						
 						Item hand = new FallenZombiePart(target + " " + limb, 'H','H');
 						map.locationOf(target).addItem(hand);
