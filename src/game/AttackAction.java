@@ -132,7 +132,12 @@ public class AttackAction extends Action {
 		target.hurt(damage);
 
 		if (!target.isConscious()) {
-			HumanCorpse corpse = new HumanCorpse(target.toString(), map);
+			PortableItem corpse;
+			if (target instanceof Human) {
+				corpse = new HumanCorpse(target.toString(), map);
+			} else {
+				corpse = new PortableItem("dead" + target.toString(), '%');
+			}
 			map.locationOf(target).addItem(corpse);
 			
 			Actions dropActions = new Actions();
