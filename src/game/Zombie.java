@@ -162,7 +162,6 @@ public class Zombie extends ZombieActor {
 		}
 		
 		else if(isLeg(limb)) {
-			System.out.println(limb.substring(limb.length()-3, limb.length()));
 			noOfLegs-=1;
 			noOfLimbs-=1;
 		}

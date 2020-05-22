@@ -60,7 +60,7 @@ public class AttackAction extends Action {
 		Weapon weapon = actor.getWeapon();
 		if(actor instanceof Zombie) {
 			if(weapon.verb().equals("bites")) {
-				if(rand.nextDouble()<0.75) {
+				if(rand.nextDouble()<0.75) { 
 					return actor + " misses " + target + ".";
 				}
 				else {
@@ -91,7 +91,7 @@ public class AttackAction extends Action {
 						if(((Zombie)target).isHand(limb)) {
 						//if(limb.substring(limb.length()-4, limb.length()).equals("Hand")) {
 						
-							Item hand = new FallenZombiePart(target + " " + limb, 'H','H');
+							Item hand = new FallenZombiePart(target + " " + limb, 'h','H');
 							map.locationOf(target).addItem(hand);
 						
 							//50% drop of item
@@ -111,7 +111,7 @@ public class AttackAction extends Action {
 
 					//if limb=leg
 						else {
-							Item leg = new FallenZombiePart(target+ " " + limb, 'L','L');
+							Item leg = new FallenZombiePart(target+ " " + limb, 'l','L');
 							map.locationOf(target).addItem(leg);
 							((Zombie) target).lossLegs();
 						}
