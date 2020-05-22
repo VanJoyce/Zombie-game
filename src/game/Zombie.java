@@ -202,11 +202,17 @@ public class Zombie extends ZombieActor {
 	public int getNoOfHands() {
 		return noOfHands;
 	}
-	
+	/**
+	 * 
+	 * @return noOfLegs
+	 */
 	public int getNoOfLegs() {
 		return noOfLegs;
 	}
-	
+	/**
+	 * 
+	 * @return noOfLimbs
+	 */
 	public int getNoOfLimbs() {
 		return noOfLimbs;
 	}
