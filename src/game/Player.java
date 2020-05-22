@@ -28,33 +28,29 @@ public class Player extends Human {
 		super(name, displayChar, hitPoints);
 	}
 
+	/**
+	 * Returns possible actions for this turn.
+	 * 
+	 * @param actions 		actions that can be performed this turn
+	 * @param lastAction 	the last action performed by player
+	 * @param map			the map the player is on
+	 * @param display		the user interface
+	 */
 	@Override
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
-		//
 		for (int i=0;i<super.getInventory().size();i++) {
 			if (super.getInventory().get(i) instanceof FallenZombiePart) {
 				actions.add(new CraftAction((FallenZombiePart) super.getInventory().get(i)));
 			}
 		}
-		//
+		
+		//Player should be able to interact with the ground they're standing on
+		actions.add(map.locationOf(this).getGround().allowableActions(this, map.locationOf(this), ""));
+		
 		// Handle multi-turn Actions
 		if (lastAction.getNextAction() != null)
 			return lastAction.getNextAction();
 		return menu.showMenu(this, actions, display);
 	}
-	/*
-	public Actions getAllowableActions(Actor otherActor, String direction, GameMap map) {
-		System.out.println("checker"+otherActor);
-		Actions list = super.getAllowableActions(otherActor, direction, map);
-		List<Item> inventory= super.getInventory();
-		for(Item item:inventory) {
-			System.out.println(item.getClass());
-			if(item.getClass().equals(FallenZombiePart.class)) {
-				System.out.println("Hello");
-				list.add(new CraftAction((FallenZombiePart) item));
-			}
-		}
-		return list;
-	}
-	*/
+	
 }

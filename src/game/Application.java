@@ -122,14 +122,14 @@ public class Application {
 //		
 //		Crop crop = new Crop();
 //		gameMap.at(40, 14).setGround(crop);
-//		for (int i = 1; i <= 10; i++) {
+//		for (int i = 1; i <= 20; i++) {
 //			gameMap.at(40, 14).getGround().tick(gameMap.at(40, 14));
 //		}
 //		Human tst = new Human("Test");
 //		gameMap.at(44, 14).addActor(tst);
 //		tst.hurt(30);
-//		
-//		
+		
+		
 		world.run();
 	}
 }
