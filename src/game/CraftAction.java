@@ -14,10 +14,21 @@ public class CraftAction extends Action{
 	
 	private FallenZombiePart zombieLimb;
 	
+	/**
+	 * 
+	 * @param zombieLimb which is the zombie limb that turn into a weapon
+	 */
+	
 	public CraftAction(FallenZombiePart zombieLimb) {
 		this.zombieLimb=zombieLimb;
 	}
-
+	
+	/** This method will first check whether zombieLimb is a Hand('H') or a Leg('L'). It will then remove the 
+	 * zombieLimb from the actor's inventory and add the newly crafted weapon into the player's inventory. 
+	 *
+	 * @param actor is the actor that will craft this weapon
+	 * @param map is the Gamemap
+	 */
 	@Override
 	public String execute(Actor actor, GameMap map) {
 		// TODO Auto-generated method stub

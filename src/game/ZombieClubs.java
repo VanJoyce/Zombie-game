@@ -2,6 +2,11 @@ package game;
 
 import edu.monash.fit2099.engine.WeaponItem;
 
+/**
+ * A ZombieClubs weapon.
+ * 
+ *
+ */
 public class ZombieClubs extends WeaponItem{
 
 	public ZombieClubs(String name) {
