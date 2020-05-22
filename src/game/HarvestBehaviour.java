@@ -11,7 +11,8 @@ import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Location;
 
 /**
- * Behaviour class to check surrounding ground for unripe crops
+ * Behaviour class to check ground actor is standing on and surrounding ground 
+ * for ripe crops.
  * @author Vanessa
  *
  */
@@ -22,6 +23,7 @@ public class HarvestBehaviour implements Behaviour{
 	 * 
 	 * @param actor the actor that is harvesting the crop
 	 * @param map the map which the crop is on
+	 * @return a HarvestAction if a ripe crop is found, otherwise null
 	 */
 	@Override
 	public Action getAction(Actor actor, GameMap map) {

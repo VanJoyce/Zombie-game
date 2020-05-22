@@ -12,7 +12,7 @@ import edu.monash.fit2099.engine.Location;
 public class Crop extends GrowableGround{
 	static final char YOUNG_DISPLAY = '=';
 	static final char MID_DISPLAY = '<';
-	static final char OLD_DISPLAY = '*';
+	static final char OLD_DISPLAY = '^';
 	
 	/**
 	 * Constructs a crop.
@@ -32,29 +32,18 @@ public class Crop extends GrowableGround{
 	}
 	
 	/**
-	 * Crop can be fertilized if unripe and actor is Farmer. It can be harvested if 
-	 * it's ripe and actor is either Farmer or Player.
+	 * Crop can be harvested if it's ripe and actor is Player.
 	 * 
 	 * @param actor the actor acting
 	 * @param location the location of the crop
 	 * @param direction the direction of the crop from actor
-	 * @return an action that can be done unto the crop at the moment.
+	 * @return a list of actions that can be done unto the crop at the moment.
 	 */
 	@Override
 	public Actions allowableActions(Actor actor, Location location, String direction) {
 		if (this.getAge() > 20 && actor instanceof Player) {
 			return new Actions(new HarvestAction(location));
 		}
-		
-//		if (displayChar == YOUNG_DISPLAY || displayChar == MID_DISPLAY) {
-//			if(actor.getClass() == Farmer.class) {
-//				return new Actions(new FertilizeAction(location));
-//			}
-//		} else {
-//			if (actor.getClass() == Farmer.class || actor.getClass() == Player.class) {
-//				return new Actions(new HarvestAction(location));
-//			}
-//		}
 		return new Actions();
 	}
 }

@@ -28,7 +28,7 @@ public class FertilizeAction extends Action {
 	 * 
 	 * @param actor the actor that fertilizes the crop
 	 * @param map the map which crop is on
-	 * @return a String displayed on the console
+	 * @return a String displayed on the console to show actor has fertilized crop
 	 */
 	@Override
 	public String execute(Actor actor, GameMap map) {
@@ -36,7 +36,7 @@ public class FertilizeAction extends Action {
 		for (int i = 1; i <= 10; i++) {
 			crop.tick(cropLocation);
 		}
-		return actor + " fertilized a crop at (" + cropLocation.x() + ", " + cropLocation.y() + ")";
+		return actor + " fertilized a crop";
 	}
 
 	/**

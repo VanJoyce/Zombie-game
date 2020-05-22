@@ -20,8 +20,10 @@ public class SowBehaviour implements Behaviour {
 
 	/**
 	 * Returns a SowAction to sow a crop at location if it is a patch of dirt.
+	 * 
 	 * @param actor the actor that is looking for dirt
 	 * @param map the map that the actor is currently on
+	 * @return SowAction if actor is able to sow a crop, otherwise null
 	 */
 	@Override
 	public Action getAction(Actor actor, GameMap map) {

@@ -5,6 +5,7 @@ import edu.monash.fit2099.engine.Actions;
 import edu.monash.fit2099.engine.Display;
 import edu.monash.fit2099.engine.DoNothingAction;
 import edu.monash.fit2099.engine.GameMap;
+import edu.monash.fit2099.engine.Item;
 
 /**
  * Class representing an ordinary human.
@@ -40,9 +41,38 @@ public class Human extends ZombieActor {
 		super(name, displayChar, hitPoints, ZombieCapability.ALIVE);
 	}
 
+	/**
+	 * Returns an action for one of its behaviours.
+	 * 
+	 * @param actions		list of actions the human can do
+	 * @param lastAction	the previous action done by this human
+	 * @param map			the map the human is on
+	 * @param display		the user interface to show what action was done
+	 * @return				the Action that the actor does this turn
+	 */
 	@Override
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
-		// FIXME humans are pretty dumb, maybe they should at least run away from zombies?
+		// FIXME humans are pretty dumb, maybe they should at least run away from zombies?		
+		return chooseAction(map, behaviours);
+	}
+	
+	/**
+	 * If human is damaged, heal by eating food if there is any in inventory. Otherwise, loop
+	 * through list of behaviours to choose an Action.
+	 * 
+	 * @param map			the map this is done on
+	 * @param behaviours	a list of behaviours the human has
+	 * @return				an action to be done
+	 */
+	protected Action chooseAction(GameMap map, Behaviour[] behaviours) {
+		// If damaged, eat food if there is any in inventory
+		if (this.hitPoints < this.maxHitPoints) {
+			for (Item item : this.getInventory()) {
+				if (item instanceof Food) {
+					return ((Food) item).eat();
+				}
+			}
+		}
 		for (Behaviour behaviour : behaviours) {
 			Action action = behaviour.getAction(this, map);
 			if (action != null)

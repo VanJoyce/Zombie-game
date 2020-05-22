@@ -31,6 +31,7 @@ public class HealAction extends Action {
 	 * 
 	 * @param actor the actor that is healed
 	 * @param map the map the actor is on
+	 * @retunr a string describing which actor is healed by how many points and by what item
 	 */
 	@Override
 	public String execute(Actor actor, GameMap map) {
@@ -43,6 +44,7 @@ public class HealAction extends Action {
 	 * Description for which item heals and how many points it heals.
 	 * 
 	 * @param actor the actor that can be healed
+	 * @return a string to describe which actor can been healed by how many points and by what item
 	 */
 	@Override
 	public String menuDescription(Actor actor) {

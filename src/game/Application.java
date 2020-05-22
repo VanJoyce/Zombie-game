@@ -98,38 +98,6 @@ public class Application {
 		gameMap.at(1, 10).addActor(new Zombie("Gaaaah"));
 		gameMap.at(62, 12).addActor(new Zombie("Aaargh"));
 		
-//		//test isolation
-//		gameMap.at(39, 13).setGround(new Fence());
-//		gameMap.at(40, 13).setGround(new Fence());
-//		gameMap.at(41, 13).setGround(new Fence());
-//		gameMap.at(42, 13).setGround(new Fence());
-//		gameMap.at(43, 13).setGround(new Fence());
-//		gameMap.at(44, 13).setGround(new Fence());
-//		gameMap.at(45, 13).setGround(new Fence());
-//		gameMap.at(46, 13).setGround(new Fence());
-//		gameMap.at(47, 13).setGround(new Fence());
-//		gameMap.at(48, 16).setGround(new Fence());
-//		gameMap.at(38, 16).setGround(new Fence());
-//		gameMap.at(39, 16).setGround(new Fence());
-//		gameMap.at(40, 16).setGround(new Fence());
-//		gameMap.at(41, 16).setGround(new Fence());
-//		gameMap.at(42, 16).setGround(new Fence());
-//		gameMap.at(43, 16).setGround(new Fence());
-//		gameMap.at(44, 16).setGround(new Fence());
-//		gameMap.at(45, 16).setGround(new Fence());
-//		gameMap.at(46, 16).setGround(new Fence());
-//		gameMap.at(47, 16).setGround(new Fence());
-//		
-//		Crop crop = new Crop();
-//		gameMap.at(40, 14).setGround(crop);
-//		for (int i = 1; i <= 20; i++) {
-//			gameMap.at(40, 14).getGround().tick(gameMap.at(40, 14));
-//		}
-//		Human tst = new Human("Test");
-//		gameMap.at(44, 14).addActor(tst);
-//		tst.hurt(30);
-		
-		
 		world.run();
 	}
 }
