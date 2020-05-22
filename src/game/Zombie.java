@@ -16,6 +16,8 @@ import edu.monash.fit2099.engine.WeaponItem;
  * This Zombie is pretty boring.  It needs to be made more interesting.
  * 
  * @author ram
+ *The Zombie has 2 hands,2 legs and 4 body limbs in tottal.
+ *new PickUpItemBehaviour(WeaponItem.class) was added to the list of behaviour.
  *
  */
 public class Zombie extends ZombieActor {
@@ -39,24 +41,31 @@ public class Zombie extends ZombieActor {
 	public Zombie(String name) {
 		super(name, 'Z', 100, ZombieCapability.UNDEAD);
 	}
-	
+	/**
+	 * If the number of zombie arms equals to 2, there's a 50-50 chance of returning bite to punch
+	 * If the number of zombie arms equals to 1, there's a 75-50 chance of returning bite to punch
+	 * If the number of zombie arms equals to 0, it is certain to return bite
+	 */
 
 	@Override
 	public IntrinsicWeapon getIntrinsicWeapon() {
 		//
 		double biting_chances = Math.random();
 		if (noOfHands==1){
-			if (biting_chances>=0.25) {
-				return new IntrinsicWeapon(15,"bites");
+			if (biting_chances>=0.75) {
+				return new IntrinsicWeapon(10, "punches");
+				//return new IntrinsicWeapon(15,"bites");
 			}
 		}
 		else if(noOfHands==2) {
 			if(biting_chances>=0.5) {
-				return new IntrinsicWeapon(15,"bites");
+				return new IntrinsicWeapon(10, "punches");
+				//return new IntrinsicWeapon(15,"bites");
 			}
 		}
 		//
-		return new IntrinsicWeapon(10, "punches");
+		return new IntrinsicWeapon(15,"bites");
+		//return new IntrinsicWeapon(10, "punches");
 	}
 
 	/**
@@ -94,9 +103,11 @@ public class Zombie extends ZombieActor {
 			return getActionForMoving(map);
 		}
 	}
-	//public Action getA
 	
-	
+	/**
+	 * This method the first action that the zombie could do. Movement is not restricted
+	 * This method is to make playTurn() to be more readable
+	 */
 	public Action getActionForMoving(GameMap map) {
 		for (Behaviour behaviour : behaviours) {
 			Action action = behaviour.getAction(this, map);
@@ -105,7 +116,14 @@ public class Zombie extends ZombieActor {
 		}
 		return new DoNothingAction();
 	}
-	
+	/**
+	 * This method the first action that the zombie could do. Movement is restricted so 
+	 * new HuntBehaviour(Human.class, 10)
+	 * new WanderBehaviour()
+	 * will not be returned
+	 * 
+	 * This method is to make playTurn() to be more readable
+	 */
 	public Action getActionForNotMoving(GameMap map) {
 		for (int i=0;i<2;i++) {
 			Action action = behaviours[i].getAction(this, map);
@@ -114,7 +132,10 @@ public class Zombie extends ZombieActor {
 		}
 		return new DoNothingAction();
 	}
-	
+	/**
+	 * This method is to set the body parts of a zombie
+	 * @return an arrayList of zombieParts(string)
+	 */
 	public ArrayList<String> setZombieLimbs() {
 		ArrayList<String> zombieLimb= new ArrayList<String>(4);
 		zombieLimb.add("rightHand");
@@ -124,24 +145,60 @@ public class Zombie extends ZombieActor {
 		return zombieLimb;
 	}
 	
-	public String loseLimbs() {
+	/**
+	 * 
+	 * @return the limb(string) that it will lose. The arrayList of body parts along with noOfLimbs and
+	 * noOfHands/noOfLegs will be updated accordingly. 
+	 * If the number of leg is 1, the counter is used to make sure that the zombie can only move once every 2 turn
+	 * @throws Exception if the body parts is the zombie is going to lose is neither hand or leg
+	 */
+	public String loseLimbs() throws Exception {
 		int limbIndex=(int)(Math.random()*((noOfLimbs)-0)+0);
 		String limb=zombieLimbs.get(limbIndex);
 		zombieLimbs.remove(limbIndex);
-		if(limb.substring(limb.length()-4, limb.length()).equals("Hand")){
+		if(isHand(limb)){
 			noOfHands-=1;
-			noOfLimbs-=1;
-					
+			noOfLimbs-=1;	
 		}
-		else {
+		
+		else if(isLeg(limb)) {
+			System.out.println(limb.substring(limb.length()-3, limb.length()));
 			noOfLegs-=1;
 			noOfLimbs-=1;
 		}
-		System.out.println(limb.substring(limb.length()-4, limb.length()));
-		System.out.println(limb+" "+getNoOfHands()+" "+getNoOfLegs());
+		else {
+			throw new Exception("This limb is neither hand or leg");
+		}
 		return limb;
 	}
-	
+	/**
+	 * 
+	 * @param string
+	 * @return true is string's last 4 letter is Hand
+	 * @return false if otherwise
+	 */
+	public boolean isHand(String string) {
+		if(string.substring(string.length()-4, string.length()).equals("Hand")){
+			return true;	
+		}
+		return false;
+	}
+	/**
+	 * 
+	 * @param string
+	 * @return true is string's last 3 letter is Leg
+	 * @return false if otherwise
+	 */
+	public boolean isLeg(String string) {
+		if(string.substring(string.length()-3, string.length()).equals("Leg")){
+			return true;	
+		}
+		return false;
+	}
+	/**
+	 * 
+	 * @return noOfHands
+	 */
 	public int getNoOfHands() {
 		return noOfHands;
 	}
@@ -153,7 +210,9 @@ public class Zombie extends ZombieActor {
 	public int getNoOfLimbs() {
 		return noOfLimbs;
 	}
-	
+	/**
+	 * Set counter to 1 and counter is ensure the zombie with 1 leg can only move once every 2 turns 
+	 */
 	public void lossLegs() {
 		counter+=1;
 	}

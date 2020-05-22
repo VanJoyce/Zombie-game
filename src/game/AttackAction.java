@@ -31,13 +31,33 @@ public class AttackAction extends Action {
 	public AttackAction(Actor target) {
 		this.target = target;
 	}
-
+	
+	/**
+	 * @param actor is the actor
+	 * @param map is the Gamemap
+	 * 
+	 * If the actor is a zombie, it will either have a chance to punch or to bite. If a successful bite occurs, the
+	 * zombie heals by 5 points. 
+	 * 
+	 *  If the actor is a human(which is the player), it will first determine the number of limbs the target(zombie) has.
+	 *  If the zombie has more than 0 limbs, a random generator is used to determine whether the zombie will lose its limbs or not.
+	 *  If so,loseLimbs() is then called to make the zombie loss limbs.
+	 *  The limb that the zombie lose will then be a new FallenZombiePart and it will be added to the map.
+	 *  If the zombie loses its arms and has one arm left, it may lose one of its item in its inventory.
+	 *  If the zombie loses its arms and has no arm left, it will lose all its item in its inventory.
+	 *  If the zombie loses its leg and has one leg left, its movement will be halved.
+	 *  If the zombie loses its leg and has no leg left, it cannot move at all though it can still bite or punch.
+	 *  The movement control of the zombie is done in the zombie's playAction().
+	 *  
+	 *  
+	 *  
+	 *  
+	 */
+	
 	@Override
 	public String execute(Actor actor, GameMap map) {
 
 		Weapon weapon = actor.getWeapon();
-		//made by jaclyn
-		//Zombie
 		if(actor instanceof Zombie) {
 			if(weapon.verb().equals("bites")) {
 				if(rand.nextDouble()<0.75) {
@@ -60,36 +80,46 @@ public class AttackAction extends Action {
 				return actor + " misses " + target + ".";
 			}
 			else {
-				if(rand.nextDouble()<=1.0 & ((Zombie) target).getNoOfLimbs()>0) {
-					String limb=((Zombie) target).loseLimbs();
-					System.out.println(target+" loses "+limb);
+				if(rand.nextDouble()<=0.25 & ((Zombie) target).getNoOfLimbs()>0) {
+					String limb;
+					try {
+						limb = ((Zombie) target).loseLimbs();
+					
+						System.out.println(target+" loses "+limb);
 						
-					//if limb=hand
-					if(limb.substring(limb.length()-4, limb.length()).equals("Hand")) {
+						//if limb=hand
+						if(((Zombie)target).isHand(limb)) {
+						//if(limb.substring(limb.length()-4, limb.length()).equals("Hand")) {
 						
-						Item hand = new FallenZombiePart(target + " " + limb, 'H','H');
-						map.locationOf(target).addItem(hand);
+							Item hand = new FallenZombiePart(target + " " + limb, 'H','H');
+							map.locationOf(target).addItem(hand);
 						
-						//50% drop of item
-						if (((Zombie) target).getNoOfHands()==1) {
-							if(rand.nextDouble()>0.5) {
-								int size=((Zombie)target).getInventory().size();
-								((Zombie) target).removeItemFromInventory(((Zombie)target).getInventory().get(rand.nextInt(size)));
+							//50% drop of item
+							if (((Zombie) target).getNoOfHands()==1) {
+								if(rand.nextDouble()>0.5 && target.getInventory().size()>0) {
+									int size=((Zombie)target).getInventory().size();
+									((Zombie) target).removeItemFromInventory(((Zombie)target).getInventory().get(rand.nextInt(size)));
+								}
+							}
+							//100% drop of item
+							else {
+								for(Item item:target.getInventory()) {
+									((Zombie) target).removeItemFromInventory(item);
+								}
 							}
 						}
-						//100% drop of item
-						else {
-							for(Item item:target.getInventory()) {
-								((Zombie) target).removeItemFromInventory(item);
-							}
-						}
-					}
 
 					//if limb=leg
-					else {
-						Item leg = new FallenZombiePart(target+ " " + limb, 'L','L');
-						map.locationOf(target).addItem(leg);
-						((Zombie) target).lossLegs();
+						else {
+							Item leg = new FallenZombiePart(target+ " " + limb, 'L','L');
+							map.locationOf(target).addItem(leg);
+							((Zombie) target).lossLegs();
+						}
+					}
+			
+					catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
 				}
 			}
@@ -115,8 +145,9 @@ public class AttackAction extends Action {
 			result += System.lineSeparator() + target + " is killed.";
 		}
 
-		return result;
+	return result;
 	}
+	
 
 	@Override
 	public String menuDescription(Actor actor) {
