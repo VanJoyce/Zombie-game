@@ -15,29 +15,50 @@ import edu.monash.fit2099.engine.GameMap;
  *
  */
 public class VoodooPriestess extends ZombieActor {
+	private int chantCounter = 0;
 	private int turnsOnMap = 0;
 	private Random rand = new Random();
+	private Behaviour behaviour = new WanderBehaviour();
 	
+	/**
+	 * Constructor for Voodoo priestess. 
+	 * @param name	the name of the Voodoo priestess
+	 */
 	public VoodooPriestess(String name) {
 		super(name, '&', 200, ZombieCapability.UNDEAD);
 	}
 
+	/**
+	 * Returns an action 
+	 */
 	@Override
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
 		turnsOnMap++;
 		if (map.contains(this)) {
 			if (turnsOnMap % 10 == 0) {
-				return new ChantAction(map);
+				chantCounter++;
+				return new ChantAction(chantCounter);
 			}
 			if (turnsOnMap == 30) {
 				map.removeActor(this);
 			}
 		} else {
-			if (rand.nextDouble() <= 0.05) {
+			System.out.println("I'M HERE");
+			if (rand.nextDouble() <= 1) {
 				turnsOnMap = 0;
-				//generate random location then add to map;
+				int x = rand.nextInt(map.getXRange().max());
+				int y = rand.nextInt(map.getYRange().max());
+				while (!map.at(x, y).canActorEnter(this)) {
+					x = rand.nextInt(map.getXRange().max());
+					y = rand.nextInt(map.getYRange().max());
+				};
+				map.at(x, y).addActor(this);
 			}
-		}		
+		}
+		
+		Action action = behaviour.getAction(this, map);
+		if (action != null)
+			return action;
 		return new DoNothingAction();
 	}
 
