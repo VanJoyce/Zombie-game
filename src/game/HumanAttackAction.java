@@ -20,7 +20,6 @@ public class HumanAttackAction extends AttackAction{
 			return actor + " misses " + target + ".";
 		}
 		else {
-			System.out.println(target instanceof Zombie);
 			if(target instanceof Zombie) {
 				if(rand.nextDouble()<=1.0 & ((Zombie) target).getNoOfLimbs()>0) {
 					String limb;

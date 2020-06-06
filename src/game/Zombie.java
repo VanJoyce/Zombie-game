@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actions;
+import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.Display;
 import edu.monash.fit2099.engine.DoNothingAction;
 import edu.monash.fit2099.engine.GameMap;
@@ -220,5 +221,13 @@ public class Zombie extends ZombieActor {
 	 */
 	public void lossLegs() {
 		counter+=1;
+	}
+	
+	@Override
+	public Actions getAllowableActions(Actor otherActor, String direction, GameMap map) {
+		Actions list = super.getAllowableActions(this, direction, map);
+		if (otherActor.hasCapability(ZombieCapability.UNDEAD) != this.hasCapability(ZombieCapability.UNDEAD))
+			list.add(new HumanAttackAction(this));
+		return list;
 	}
 }

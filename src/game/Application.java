@@ -132,7 +132,7 @@ public class Application {
 		
 		
 		ghostTown.at(0, 0).addActor(new Zombie("Verge"));
-		Vehicle truck=new Vehicle("Truck",'T');
+		Vehicle truck=new Vehicle("Car",'C');
 		gameMap.at(1, 1).addItem(truck);
 		truck.addAction(new MoveActorAction(ghostTown.at(79,24), "to GhostTown!"));
 		
