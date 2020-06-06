@@ -132,15 +132,17 @@ public class Application {
 		
 		
 		ghostTown.at(0, 0).addActor(new Zombie("Verge"));
-		Vehicle truck=new Vehicle("Car",'C');
-		gameMap.at(1, 1).addItem(truck);
-		truck.addAction(new MoveActorAction(ghostTown.at(79,24), "to GhostTown!"));
+		Vehicle car=new Vehicle("Car",'C');
+		//gameMap.at(1, 1).addItem(car);
+		gameMap.at(42, 17).addItem(car);
+		//car.addAction(new MoveActorAction(ghostTown.at(79,24), "to GhostTown!"));
+		car.addMoveAction(ghostTown,79,24,player,"to GhostTown!");
 		
-		/*
-		ghostTown.at(79, 24).addItem(truck);
-		truck.addAction(new MoveActorAction(gameMap.at(1,1), "to Home!"));
 		
-		 */
+		ghostTown.at(79, 24).addItem(car);
+		car.addMoveAction(gameMap,1,1,player, "to Home!");
+		
+		 
 		
 		world.run();
 	}
