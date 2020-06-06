@@ -47,10 +47,20 @@ public class Player extends Human {
 		//Player should be able to interact with the ground they're standing on
 		actions.add(map.locationOf(this).getGround().allowableActions(this, map.locationOf(this), ""));
 		
+		//for(Actions action:this.getAllowableActions(otherActor, direction, map))
+		
 		// Handle multi-turn Actions
 		if (lastAction.getNextAction() != null)
 			return lastAction.getNextAction();
 		return menu.showMenu(this, actions, display);
+	}
+	
+	@Override
+	public Actions getAllowableActions(Actor otherActor, String direction, GameMap map) {
+		Actions list = super.getAllowableActions(this, direction, map);
+		if (otherActor.hasCapability(ZombieCapability.UNDEAD) != this.hasCapability(ZombieCapability.ALIVE))
+			list.add(new HumanAttackAction(otherActor));
+		return list;
 	}
 	
 }
