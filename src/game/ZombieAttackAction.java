@@ -35,7 +35,9 @@ public class ZombieAttackAction extends AttackAction{
 		String result = actor + " " + weapon.verb() + " " + target + " for " + damage + " damage.";
 		
 		target.hurt(damage);
-
+		
+		//super.execute(actor, map);
+		
 		if (!target.isConscious()) {
 			PortableItem corpse;
 			if (target instanceof Human) {

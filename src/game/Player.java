@@ -58,7 +58,7 @@ public class Player extends Human {
 	@Override
 	public Actions getAllowableActions(Actor otherActor, String direction, GameMap map) {
 		Actions list = super.getAllowableActions(this, direction, map);
-		if (otherActor.hasCapability(ZombieCapability.UNDEAD) != this.hasCapability(ZombieCapability.ALIVE))
+		if (otherActor.hasCapability(ZombieCapability.UNDEAD) != this.hasCapability(ZombieCapability.UNDEAD))
 			list.add(new HumanAttackAction(otherActor));
 		return list;
 	}
