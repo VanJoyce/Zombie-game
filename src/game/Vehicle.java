@@ -19,7 +19,6 @@ public class Vehicle extends Item{
 		this.allowableActions.add(action);
 	}
 	public void addMoveAction(GameMap map,int x,int y,Actor actor,String direction) {
-		System.out.println ((map.contains(actor)) );
 		if(!map.contains(actor)) {
 			this.allowableActions.add(new MoveActorAction(map.at(x, y),direction));
 		}
