@@ -6,6 +6,7 @@ import edu.monash.fit2099.engine.Display;
 import edu.monash.fit2099.engine.DoNothingAction;
 import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Item;
+import edu.monash.fit2099.engine.Weapon;
 
 /**
  * Class representing an ordinary human.
@@ -84,6 +85,31 @@ public class Human extends ZombieActor {
 		}
 		return new DoNothingAction();
 	}
+	
+	
+	@Override
+	public Weapon getWeapon() {
+		Weapon weapon=highestDamageWeapon();
+		if(weapon!=null) {
+			return weapon;
+		}
+		return getIntrinsicWeapon();
+	}
+	
+	
+	private Weapon highestDamageWeapon() {
+		int damage=0;
+		Weapon weapon=null;
+		for(Item item:inventory) {
+			if(item.asWeapon()!=null)
+				if(((Weapon)item).damage()>damage){
+				weapon=item.asWeapon();
+				damage=((Weapon)item).damage();
+				}
+		}
+		return weapon;
+	}
+	
 	
 	public void gotAmmunitionRifle() {
 		hasAmmunitionRifle=true;
