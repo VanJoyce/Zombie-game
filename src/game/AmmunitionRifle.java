@@ -3,9 +3,9 @@ package game;
 import edu.monash.fit2099.engine.DropItemAction;
 import edu.monash.fit2099.engine.PickUpItemAction;
 
-public class AmmunitionRiffle extends PortableItem implements Ammunition{
+public class AmmunitionRifle extends PortableItem implements Ammunition{
 
-	public AmmunitionRiffle() {
+	public AmmunitionRifle() {
 		super("Riffle Ammunition", ';');
 		// TODO Auto-generated constructor stub
 	}
@@ -13,7 +13,7 @@ public class AmmunitionRiffle extends PortableItem implements Ammunition{
 	@Override
 	public PickUpItemAction getPickUpAction() {
 		if(portable)
-			return new PickUpAmmunitionRiffleAction(this);
+			return new PickUpAmmunitionRifleAction(this);
 		
 		return null;
 	}
@@ -21,7 +21,7 @@ public class AmmunitionRiffle extends PortableItem implements Ammunition{
 	@Override
 	public DropItemAction getDropAction() {
 		if(portable)
-			return new DropAmmunitonRiffleAction(this);
+			return new DropAmmunitonRifleAction(this);
 		
 		return null;
 	}

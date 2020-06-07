@@ -16,7 +16,7 @@ import edu.monash.fit2099.engine.Item;
  */
 public class Human extends ZombieActor {
 	
-	private boolean hasAmmunitionRiffle=false;
+	private boolean hasAmmunitionRifle=false;
 	private boolean hasAmmunitionShotgun=false;
 	
 	private Behaviour[] behaviours = {
@@ -85,8 +85,8 @@ public class Human extends ZombieActor {
 		return new DoNothingAction();
 	}
 	
-	public void gotAmmunitionRiffle() {
-		hasAmmunitionRiffle=true;
+	public void gotAmmunitionRifle() {
+		hasAmmunitionRifle=true;
 	}
 	
 	public void gotAmmunitionShotgun() {
@@ -97,13 +97,13 @@ public class Human extends ZombieActor {
 		hasAmmunitionShotgun=false;
 	}
 	
-	public void noAmmunitionRiffle() {
-		hasAmmunitionRiffle=false;
+	public void noAmmunitionRifle() {
+		hasAmmunitionRifle=false;
 	}
 	private boolean containAmmunitionShotgun() {
 		return hasAmmunitionShotgun;
 	}
-	private boolean containAmmunitionRiffle() {
-		return hasAmmunitionRiffle;
+	private boolean containAmmunitionRifle() {
+		return hasAmmunitionRifle;
 	}
 }
