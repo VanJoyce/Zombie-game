@@ -62,13 +62,25 @@ public class AttackAction extends Action {
 		if (rand.nextBoolean()) {
 			return actor + " misses " + target + ".";
 		}
-
 		int damage = weapon.damage();
+		
+		return isDead(actor,target,weapon,damage,map);
+	}
+	
+	
+	public String isDead(Actor actor,Actor target,Weapon weapon, int damage,GameMap map) {
+		
 		String result = actor + " " + weapon.verb() + " " + target + " for " + damage + " damage.";
-
+		
 		target.hurt(damage);
+
 		if (!target.isConscious()) {
-			Item corpse = new PortableItem("dead " + target, '%');
+			PortableItem corpse;
+			if (target instanceof Human) {
+				corpse = new HumanCorpse(target.toString(), map);
+			} else {
+				corpse = new PortableItem("dead" + target.toString(), '%');
+			}
 			map.locationOf(target).addItem(corpse);
 			
 			Actions dropActions = new Actions();
@@ -81,8 +93,38 @@ public class AttackAction extends Action {
 			result += System.lineSeparator() + target + " is killed.";
 		}
 
-		return result;
+	return result;
 	}
+		
+		/*
+		 * 		String result = actor + " " + weapon.verb() + " " + target + " for " + damage + " damage.";
+		
+		target.hurt(damage);
+
+		if (!target.isConscious()) {
+			PortableItem corpse;
+			if (target instanceof Human) {
+				corpse = new HumanCorpse(target.toString(), map);
+			} else {
+				corpse = new PortableItem("dead" + target.toString(), '%');
+			}
+			map.locationOf(target).addItem(corpse);
+			
+			Actions dropActions = new Actions();
+			for (Item item : target.getInventory())
+				dropActions.add(item.getDropAction());
+			for (Action drop : dropActions)		
+				drop.execute(target, map);
+			map.removeActor(target);	
+			
+			result += System.lineSeparator() + target + " is killed.";
+		}
+
+	return result;
+	}
+		 */
+		
+	
 
 	/*
 	@Override

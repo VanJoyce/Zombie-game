@@ -21,7 +21,7 @@ public class HumanAttackAction extends AttackAction{
 		}
 		else {
 			if(target instanceof Zombie) {
-				if(rand.nextDouble()<=1.0 & ((Zombie) target).getNoOfLimbs()>0) {
+				if(rand.nextDouble()<=0.33 & ((Zombie) target).getNoOfLimbs()>0) {
 					String limb;
 					try {
 						limb = ((Zombie) target).loseLimbs();
@@ -69,31 +69,7 @@ public class HumanAttackAction extends AttackAction{
 	//
 
 	int damage = weapon.damage();
-	String result = actor + " " + weapon.verb() + " " + target + " for " + damage + " damage.";
-	
-	target.hurt(damage);
-
-	if (!target.isConscious()) {
-		PortableItem corpse;
-		if (target instanceof Human) {
-			corpse = new HumanCorpse(target.toString(), map);
-		} else {
-			corpse = new PortableItem("dead" + target.toString(), '%');
-		}
-		map.locationOf(target).addItem(corpse);
-		
-		Actions dropActions = new Actions();
-		for (Item item : target.getInventory())
-			dropActions.add(item.getDropAction());
-		for (Action drop : dropActions)		
-			drop.execute(target, map);
-		map.removeActor(target);	
-		
-		result += System.lineSeparator() + target + " is killed.";
-	}
-
-
-	return result;
+	return super.isDead(actor, target, weapon, damage, map);
 	}
 
 }
