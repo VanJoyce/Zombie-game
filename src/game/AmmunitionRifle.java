@@ -6,7 +6,7 @@ import edu.monash.fit2099.engine.PickUpItemAction;
 public class AmmunitionRifle extends PortableItem implements Ammunition{
 
 	public AmmunitionRifle() {
-		super("Riffle Ammunition", ';');
+		super("Rifle Ammunition", ';');
 		// TODO Auto-generated constructor stub
 	}
 	
