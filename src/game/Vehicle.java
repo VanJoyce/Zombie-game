@@ -24,6 +24,4 @@ public class Vehicle extends Item{
 			this.allowableActions.add(new MoveActorAction(map.at(x, y),direction));
 		}
 	}
-	//car.addMoveAction(ghostTown,79,24,player,"to GhostTown!");
-	//car.addAction(new MoveActorAction(ghostTown.at(79,24), "to GhostTown!"));
 }
