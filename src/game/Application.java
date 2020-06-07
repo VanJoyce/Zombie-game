@@ -7,6 +7,7 @@ import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.Display;
 import edu.monash.fit2099.engine.FancyGroundFactory;
 import edu.monash.fit2099.engine.GameMap;
+import edu.monash.fit2099.engine.Item;
 import edu.monash.fit2099.engine.MoveActorAction;
 import edu.monash.fit2099.engine.World;
 
@@ -81,15 +82,8 @@ public class Application {
 		gameMap.at(74, 20).addItem(new Plank());
 		gameMap.at(42, 16).addItem(new Plank());
 		
-		gameMap.at(31, 19).addItem(new Plank());
-		gameMap.at(31, 20).addItem(new Plank());
-		gameMap.at(31, 21).addItem(new Plank());
-		gameMap.at(30, 19).addItem(new Plank());
-		gameMap.at(30, 21).addItem(new Plank());
-		gameMap.at(29, 19).addItem(new Plank());
-		gameMap.at(29, 20).addItem(new Plank());
-		gameMap.at(29, 21).addItem(new Plank());
-	
+		gameMap.at(41, 15).addItem(new AmmunitionShotgun());
+		gameMap.at(41, 14).addItem(new AmmunitionRiffle());
 		
 		// FIXME: Add more zombies!
 		gameMap.at(30, 20).addActor(new Zombie("Groan"));
