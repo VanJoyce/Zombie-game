@@ -37,8 +37,14 @@ public class ZombieWorld extends World {
 			GameMap playersMap = actorLocations.locationOf(player).map();
 			playersMap.draw(display);
 			
+			// Process all the actors.
+			for (Actor actor : actorLocations) {
+				if (stillRunning())
+					processActorTurn(actor);
+			}
+			
 			//Add Mambo Marie to the gameMap
-			if(!actorLocations.contains(mamboMarie) && rand.nextDouble() <= 0.9) {
+			if(!actorLocations.contains(mamboMarie) && rand.nextDouble() <= 0.05) {
 				GameMap map = actorLocations.locationOf(player).map();
 				int x = 0;
 				int y = 0;
@@ -46,12 +52,6 @@ public class ZombieWorld extends World {
 					x++;
 				};
 				map.at(x, y).addActor(mamboMarie);
-			}
-
-			// Process all the actors.
-			for (Actor actor : actorLocations) {
-				if (stillRunning())
-					processActorTurn(actor);
 			}
 			
 			// Tick over all the maps. For the map stuff.

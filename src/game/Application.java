@@ -96,7 +96,7 @@ public class Application {
 		
 		//Viewing box for testing
 		gameMap.at(42, 14).setGround(new Fence());
-		gameMap.at(42, 16).setGround(new Fence());
+//		gameMap.at(42, 16).setGround(new Fence());
 		gameMap.at(41, 15).setGround(new Fence());
 		gameMap.at(43, 15).setGround(new Fence());
 		gameMap.at(41, 14).setGround(new Fence());
