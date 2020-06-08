@@ -1,5 +1,7 @@
 package game;
 
+import java.util.Random;
+
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.Display;
 import edu.monash.fit2099.engine.DoNothingAction;
@@ -14,6 +16,7 @@ import edu.monash.fit2099.engine.World;
 public class ZombieWorld extends World {
 	private GameStatus currentStatus = GameStatus.RUNNING;
 	private VoodooPriestess mamboMarie = new VoodooPriestess("Mambo Marie");
+	private Random rand = new Random();
 
 	public ZombieWorld(Display display) {
 		super(display);
@@ -33,14 +36,24 @@ public class ZombieWorld extends World {
 		while (stillRunning()) {
 			GameMap playersMap = actorLocations.locationOf(player).map();
 			playersMap.draw(display);
+			
+			//Add Mambo Marie to the gameMap
+			if(!actorLocations.contains(mamboMarie) && rand.nextDouble() <= 0.9) {
+				GameMap map = actorLocations.locationOf(player).map();
+				int x = 0;
+				int y = 0;
+				while (!map.at(x, y).canActorEnter(mamboMarie)) {
+					x++;
+				};
+				map.at(x, y).addActor(mamboMarie);
+			}
 
 			// Process all the actors.
 			for (Actor actor : actorLocations) {
 				if (stillRunning())
 					processActorTurn(actor);
 			}
-			processActorTurn(mamboMarie);
-
+			
 			// Tick over all the maps. For the map stuff.
 			for (GameMap gameMap : gameMaps) {
 				gameMap.tick();
@@ -55,7 +68,7 @@ public class ZombieWorld extends World {
 	 */
 	@Override
 	protected boolean stillRunning() {
-		if (actorLocations.contains(player)) {
+		if (actorLocations.contains(player)) {			
 			int humans = 0;
 			int zombies = 0;
 			for (Actor actor : actorLocations) {
@@ -77,6 +90,7 @@ public class ZombieWorld extends World {
 			}	// to check quit maybe add something to player menu. Maybe need an action.
 			return true;
 		}
+		currentStatus = GameStatus.LOST;
 		return false;
 	}
 	

@@ -35,25 +35,15 @@ public class VoodooPriestess extends ZombieActor {
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
 		turnsOnMap++;
 		if (map.contains(this)) {
-			if (turnsOnMap % 10 == 0) {
-				chantCounter++;
-				return new ChantAction(chantCounter);
-			}
 			if (turnsOnMap == 30) {
 				map.removeActor(this);
 			}
+			if (turnsOnMap % 10 == 0) {
+				chantCounter++;
+				return new ChantAction(chantCounter);
+			}	
 		} else {
-			System.out.println("I'M HERE");
-			if (rand.nextDouble() <= 1) {
-				turnsOnMap = 0;
-				int x = rand.nextInt(map.getXRange().max());
-				int y = rand.nextInt(map.getYRange().max());
-				while (!map.at(x, y).canActorEnter(this)) {
-					x = rand.nextInt(map.getXRange().max());
-					y = rand.nextInt(map.getYRange().max());
-				};
-				map.at(x, y).addActor(this);
-			}
+			turnsOnMap = 0;
 		}
 		
 		Action action = behaviour.getAction(this, map);
