@@ -85,7 +85,7 @@ public class Human extends ZombieActor {
 		}
 		return new DoNothingAction();
 	}
-	
+	//check the ammunition. check weapon is in inventory. weapon.[addaction(northattack)]*8
 	
 	@Override
 	public Weapon getWeapon() {
@@ -109,7 +109,7 @@ public class Human extends ZombieActor {
 		}
 		return weapon;
 	}
-	
+	//create new method, loop thorugh inventory, if there's ammunition, call gotAmmunition
 	
 	public void gotAmmunitionRifle() {
 		hasAmmunitionRifle=true;
