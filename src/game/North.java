@@ -46,5 +46,5 @@ public class North extends Direction{
 		return string;
 	}
 
-	public String execute() {}
+//	public String execute() {}
 }

@@ -50,7 +50,7 @@ public class ChantAction extends Action{
 			map.at(x, y).addActor(zombie);
 		}
 		
-		return actor + " chants, causing 5 new zombies to rise from the dead.";
+		return menuDescription(actor);
 	}
 
 	/**
@@ -61,7 +61,7 @@ public class ChantAction extends Action{
 	 */
 	@Override
 	public String menuDescription(Actor actor) {
-		return actor + " chants";
+		return actor + " chants, causing 5 new zombies to rise from the dead.";
 	}
 
 }

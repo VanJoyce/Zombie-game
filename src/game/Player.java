@@ -14,7 +14,7 @@ import edu.monash.fit2099.engine.Menu;
  * Class representing the Player.
  */
 public class Player extends Human {
-
+	private ZombieWorld zombieWorld;
 	private Menu menu = new Menu();
 
 	/**
@@ -23,9 +23,11 @@ public class Player extends Human {
 	 * @param name        Name to call the player in the UI
 	 * @param displayChar Character to represent the player in the UI
 	 * @param hitPoints   Player's starting number of hitpoints
+	 * @param zombieWorld the world the player is in 
 	 */
-	public Player(String name, char displayChar, int hitPoints) {
+	public Player(String name, char displayChar, int hitPoints, ZombieWorld zombieWorld) {
 		super(name, displayChar, hitPoints);
+		this.zombieWorld = zombieWorld;
 	}
 
 	/**
@@ -47,11 +49,7 @@ public class Player extends Human {
 		//Player should be able to interact with the ground they're standing on
 		actions.add(map.locationOf(this).getGround().allowableActions(this, map.locationOf(this), ""));
 		
-		//for(Actions action:this.getAllowableActions(otherActor, direction, map))
-		
-		
-		//Quit game
-		actions.add(new QuitAction());
+		actions.add(new QuitAction(zombieWorld));
 		
 		// Handle multi-turn Actions
 		if (lastAction.getNextAction() != null)

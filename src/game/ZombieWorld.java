@@ -18,10 +18,25 @@ public class ZombieWorld extends World {
 	private VoodooPriestess mamboMarie = new VoodooPriestess("Mambo Marie");
 	private Random rand = new Random();
 
+	/**
+	 * Constructor.
+	 * 
+	 * @param display	the display for the game
+	 */
 	public ZombieWorld(Display display) {
 		super(display);
 	}
 	
+	/**
+	 * Run the game.
+	 * 
+	 * On each iteration the gameloop does the following: - displays the player's
+	 * map - processes the actions of every Actor in the game, regardless of map.
+	 *
+	 * There is a chance Mambo Marie is added if she is conscious and she is not currently on any map.
+	 *
+	 * @throws IllegalStateException if the player doesn't exist
+	 */
 	@Override
 	public void run() {
 		if (player == null)
@@ -44,12 +59,16 @@ public class ZombieWorld extends World {
 			}
 			
 			//Add Mambo Marie to the gameMap
-			if(!actorLocations.contains(mamboMarie) && rand.nextDouble() <= 0.05) {
+			if(mamboMarie.isConscious() && !actorLocations.contains(mamboMarie) && rand.nextDouble() <= 0.05) {
 				GameMap map = actorLocations.locationOf(player).map();
 				int x = 0;
 				int y = 0;
 				while (!map.at(x, y).canActorEnter(mamboMarie)) {
 					x++;
+					if (x > map.getXRange().max()) {
+						x = 0;
+						y++;
+					}
 				};
 				map.at(x, y).addActor(mamboMarie);
 			}
@@ -64,10 +83,24 @@ public class ZombieWorld extends World {
 	}
 	
 	/**
-	 * Checks if the player has won lost or maybe quit the game.
+	 * Quit the game.
+	 */
+	public void quit() {
+		currentStatus = GameStatus.QUIT;
+	}
+	
+	/**
+	 * Checks if the game should still be running.
+	 * The game is lost if there are no more humans in any of the maps. The game is won if Mambo Marie has been defeated and there are no more zombies.
+	 * 
+	 * @return 	false if the game has been quit, won or lost and true otherwise
 	 */
 	@Override
 	protected boolean stillRunning() {
+		if (currentStatus == GameStatus.QUIT) {
+			return false;
+		}
+		
 		if (actorLocations.contains(player)) {			
 			int humans = 0;
 			int zombies = 0;
@@ -87,13 +120,18 @@ public class ZombieWorld extends World {
 			} else if (zombies == 0 && !mamboMarie.isConscious()) {
 				currentStatus = GameStatus.WON;
 				return false;
-			}	// to check quit maybe add something to player menu. Maybe need an action.
+			}	
 			return true;
 		}
-		currentStatus = GameStatus.LOST;
 		return false;
 	}
 	
+	/**
+	 * Returns a string for the result of the gameplay.
+	 * 
+	 * @return	a string when the game is lost, won or player has quit
+	 * @throws	Error if the current status is not lost, won or quit but the game has ended.
+	 */
 	@Override
 	protected String endGameMessage() {
 		if (currentStatus == GameStatus.LOST) {
@@ -103,10 +141,16 @@ public class ZombieWorld extends World {
 		} else if (currentStatus == GameStatus.QUIT) {
 			return "You have quit the game.";
 		} else {
-			throw new Error("The game is still running but player has not lost, won or quit.");
+			throw new Error("The game has ended but player has not lost, won or quit.");
 		}
 	}
 	
+	/**
+	 * Private enum class for the status of this world.
+	 * 
+	 * @author Vanessa
+	 *
+	 */
 	private enum GameStatus {
 		RUNNING, QUIT, LOST, WON
 	}
