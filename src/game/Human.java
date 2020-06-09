@@ -85,7 +85,21 @@ public class Human extends ZombieActor {
 		}
 		return new DoNothingAction();
 	}
-	//check the ammunition. check weapon is in inventory. weapon.[addaction(northattack)]*8
+
+	/**
+	 * Checks inventory for a certain type of ammunition.
+	 * 
+	 * @param ammunitionType	class of the ammunition to be checked in the actor's inventory
+	 * @return					true if that type of ammunition is in actor's inventory, otherwise false
+	 */
+	public boolean hasAmmunition(Class<?> ammunitionType) {
+		for (Item item : this.getInventory()) {
+			if (ammunitionType.isInstance(item)) {
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	@Override
 	public Weapon getWeapon() {
@@ -109,27 +123,5 @@ public class Human extends ZombieActor {
 		}
 		return weapon;
 	}
-	//create new method, loop thorugh inventory, if there's ammunition, call gotAmmunition
 	
-	public void gotAmmunitionRifle() {
-		hasAmmunitionRifle=true;
-	}
-	
-	public void gotAmmunitionShotgun() {
-		hasAmmunitionShotgun=true;
-	}
-	
-	public void noAmmunitionShotgun() {
-		hasAmmunitionShotgun=false;
-	}
-	
-	public void noAmmunitionRifle() {
-		hasAmmunitionRifle=false;
-	}
-	private boolean containAmmunitionShotgun() {
-		return hasAmmunitionShotgun;
-	}
-	private boolean containAmmunitionRifle() {
-		return hasAmmunitionRifle;
-	}
 }

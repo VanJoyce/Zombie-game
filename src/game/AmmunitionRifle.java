@@ -7,23 +7,6 @@ public class AmmunitionRifle extends PortableItem implements Ammunition{
 
 	public AmmunitionRifle() {
 		super("Rifle Ammunition", ';');
-		// TODO Auto-generated constructor stub
-	}
-	
-	@Override
-	public PickUpItemAction getPickUpAction() {
-		if(portable)
-			return new PickUpAmmunitionRifleAction(this);
-		
-		return null;
-	}
-
-	@Override
-	public DropItemAction getDropAction() {
-		if(portable)
-			return new DropAmmunitonRifleAction(this);
-		
-		return null;
 	}
 
 }
