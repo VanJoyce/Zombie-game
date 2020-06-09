@@ -22,6 +22,7 @@ public class VoodooPriestess extends ZombieActor {
 	
 	/**
 	 * Constructor for Voodoo priestess. 
+	 * 
 	 * @param name	the name of the Voodoo priestess
 	 */
 	public VoodooPriestess(String name) {
@@ -29,32 +30,26 @@ public class VoodooPriestess extends ZombieActor {
 	}
 
 	/**
-	 * Returns an action 
+	 * Returns an action. Every 10 turns she spends on the map, she will chant. Every other turn, she will wander. Once she has spent
+	 * 30 turns on the map, she will be removed from the map.
+	 * 
+	 * @param actions		list of actions the Voodoo Priestess can do
+	 * @param lastAction	the previous action done by this Voodoo Priestess
+	 * @param map			the map the Voodoo Priestess is on
+	 * @param display		the user interface that shows what has been done
+	 * @return				an Action done this turn
 	 */
 	@Override
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
 		turnsOnMap++;
-		if (map.contains(this)) {
-			if (turnsOnMap % 10 == 0) {
-				chantCounter++;
-				return new ChantAction(chantCounter);
-			}
-			if (turnsOnMap == 30) {
-				map.removeActor(this);
-			}
-		} else {
-			System.out.println("I'M HERE");
-			if (rand.nextDouble() <= 1) {
-				turnsOnMap = 0;
-				int x = rand.nextInt(map.getXRange().max());
-				int y = rand.nextInt(map.getYRange().max());
-				while (!map.at(x, y).canActorEnter(this)) {
-					x = rand.nextInt(map.getXRange().max());
-					y = rand.nextInt(map.getYRange().max());
-				};
-				map.at(x, y).addActor(this);
-			}
+		if (turnsOnMap == 30) {
+			map.removeActor(this);
+			turnsOnMap = 0;
 		}
+		if (turnsOnMap % 10 == 0) {
+			chantCounter++;
+			return new ChantAction(chantCounter);
+		}	
 		
 		Action action = behaviour.getAction(this, map);
 		if (action != null)

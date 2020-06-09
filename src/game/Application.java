@@ -18,7 +18,7 @@ import edu.monash.fit2099.engine.World;
 public class Application {
 
 	public static void main(String[] args) {
-		World world = new World(new Display());
+		ZombieWorld world = new ZombieWorld(new Display());
 
 		FancyGroundFactory groundFactory = new FancyGroundFactory(new Dirt(), new Fence(), new Tree());
 		
@@ -93,6 +93,16 @@ public class Application {
 		gameMap.at(50, 18).addActor(new Zombie("Mortalis"));
 		gameMap.at(1, 10).addActor(new Zombie("Gaaaah"));
 		gameMap.at(62, 12).addActor(new Zombie("Aaargh"));
+		
+		//Viewing box for testing
+		gameMap.at(42, 14).setGround(new Fence());
+//		gameMap.at(42, 16).setGround(new Fence());
+		gameMap.at(41, 15).setGround(new Fence());
+		gameMap.at(43, 15).setGround(new Fence());
+		gameMap.at(41, 14).setGround(new Fence());
+		gameMap.at(43, 14).setGround(new Fence());
+		gameMap.at(41, 16).setGround(new Fence());
+		gameMap.at(43, 16).setGround(new Fence());
 		
 		
 		//Addition of the new map

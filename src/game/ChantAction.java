@@ -15,10 +15,22 @@ public class ChantAction extends Action{
 	private int chantCounter = 0;
 	private Random rand = new Random();
 	
+	/**
+	 * Constructor for ChantAction.
+	 * 
+	 * @param chantCounter	the number of times ChantAction has been called by the actor doing this action
+	 */
 	public ChantAction(int chantCounter) {
 		this.chantCounter = chantCounter;
 	}
 	
+	/**
+	 * Creates and places five new zombies randomly on the map.
+	 * 
+	 * @param actor	the actor doing this ChantAction
+	 * @param map	the map where the zombies will be spawned (also the map where actor is on)
+	 * @return 		a descriptive String to be displayed on the console.
+	 */
 	@Override
 	public String execute(Actor actor, GameMap map) {
 		int noOfZombies = 0;
@@ -38,12 +50,18 @@ public class ChantAction extends Action{
 			map.at(x, y).addActor(zombie);
 		}
 		
-		return actor + "chants, causing 5 new zombies to rise from the dead.";
+		return actor + " chants, causing 5 new zombies to rise from the dead.";
 	}
 
+	/**
+	 * Description of who chants.
+	 * 
+	 * @param actor	the actor doing this ChantAction
+	 * @return		a descriptive string to be displayed on the menu
+	 */
 	@Override
 	public String menuDescription(Actor actor) {
-		return actor + "chants";
+		return actor + " chants";
 	}
 
 }

@@ -49,6 +49,10 @@ public class Player extends Human {
 		
 		//for(Actions action:this.getAllowableActions(otherActor, direction, map))
 		
+		
+		//Quit game
+		actions.add(new QuitAction());
+		
 		// Handle multi-turn Actions
 		if (lastAction.getNextAction() != null)
 			return lastAction.getNextAction();
