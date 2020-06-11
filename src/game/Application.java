@@ -93,7 +93,8 @@ public class Application {
 		gameMap.at(50, 18).addActor(new Zombie("Mortalis"));
 		gameMap.at(1, 10).addActor(new Zombie("Gaaaah"));
 		gameMap.at(62, 12).addActor(new Zombie("Aaargh"));
-		
+
+		/*
 		//Viewing box for testing
 		gameMap.at(42, 14).setGround(new Fence());
 //		gameMap.at(42, 16).setGround(new Fence());
@@ -103,7 +104,7 @@ public class Application {
 		gameMap.at(43, 14).setGround(new Fence());
 		gameMap.at(41, 16).setGround(new Fence());
 		gameMap.at(43, 16).setGround(new Fence());
-		
+		*/
 		
 		//Addition of the new map
 		List<String> ghostMap = Arrays.asList(
