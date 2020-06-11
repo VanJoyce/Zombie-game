@@ -16,7 +16,7 @@ public class North extends Direction{
 	}
 
 	@Override
-	public List<Location> getLocationInDirection() {
+	public List<Location> getLocationInDirection(int [][] coordinate) {
 		// TODO Auto-generated method stub
 		List<Location> allLocation=new ArrayList<>();
 		int [][] coordinate=new int[][] {{0,-1},{-1,-1},{-1,0},{-1,1},{-2,-2},{-2,-1},{-2,0},{-2,1},{-2,2}};

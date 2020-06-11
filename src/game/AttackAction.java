@@ -22,7 +22,8 @@ public class AttackAction extends Action {
 	 * Random number generator
 	 */
 	protected Random rand = new Random();
-
+	
+	
 	/**
 	 * Constructor.
 	 * 
@@ -54,16 +55,21 @@ public class AttackAction extends Action {
 	 *  
 	 */
 	
-	@Override
-	public String execute(Actor actor, GameMap map) {
-
-		Weapon weapon = actor.getWeapon();
-		System.out.print("Hello from attackaction!");
+	public String execute(Actor actor, GameMap map,Weapon weapon) {
 		if (rand.nextBoolean()) {
 			return actor + " misses " + target + ".";
 		}
 		int damage = weapon.damage();
+		return isDead(actor,target,weapon,damage,map);
 		
+	}
+	@Override
+	public String execute(Actor actor, GameMap map) {
+		Weapon weapon = actor.getWeapon();
+		return execute(actor,map,weapon);
+	}
+	
+	public String execute(Actor actor,GameMap map,Weapon weapon,int damage) {
 		return isDead(actor,target,weapon,damage,map);
 	}
 	

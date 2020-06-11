@@ -16,6 +16,10 @@ public class HumanAttackAction extends AttackAction{
 	
 	public String execute(Actor actor,GameMap map) {
 		Weapon weapon = actor.getWeapon();
+		return execute(actor,map,weapon);
+	}
+	
+	public String execute(Actor actor,GameMap map,Weapon weapon) {
 		if (rand.nextBoolean()){
 			return actor + " misses " + target + ".";
 		}

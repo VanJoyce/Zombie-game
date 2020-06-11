@@ -48,6 +48,9 @@ public class Player extends Human {
 		
 		//Player should be able to interact with the ground they're standing on
 		actions.add(map.locationOf(this).getGround().allowableActions(this, map.locationOf(this), ""));
+		if(this.hasAmmunition(AmmunitionShotgun.class)&&this.hasRangedWeapon(Shotgun.class)) {
+			actions.add(new DisplayActionSubmenuShotgun(Shotgun.class));
+		}
 		
 		actions.add(new QuitAction(zombieWorld));
 		
