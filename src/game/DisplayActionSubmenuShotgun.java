@@ -25,11 +25,11 @@ public class DisplayActionSubmenuShotgun extends Action{
 		if (weaponType.isInstance(Shotgun.class)){
 		subMenuActions.add(new ShotgunAttack(display));//shotgun special attack
 		}
-		
+		/*
 		if (weaponType.isInstance(SniperRifle.class)){
 			subMenuActions.add(new RiffleAttack(display));//rifle special attack);
 		}
-		
+		*/
 		System.out.println(menuDescription(actor));
 		//u want a new list of actions to display
 		subMenu.showMenu(actor, subMenuActions, display);
