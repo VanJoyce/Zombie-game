@@ -17,8 +17,8 @@ import edu.monash.fit2099.engine.Weapon;
  */
 public class Human extends ZombieActor {
 	
-	private boolean hasAmmunitionRifle=false;
-	private boolean hasAmmunitionShotgun=false;
+	//private boolean hasAmmunitionRifle=false;
+	//private boolean hasAmmunitionShotgun=false;
 	
 	private Behaviour[] behaviours = {
 			new PickUpItemBehaviour(Food.class),
