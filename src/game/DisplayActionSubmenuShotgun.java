@@ -38,7 +38,8 @@ public class DisplayActionSubmenuShotgun extends Action{
 
 	@Override
 	public String menuDescription(Actor actor) {
-		String string= actor+" chooses to use " + weaponType.toString();
-		return string;
+		// TODO Auto-generated method stub
+		return null;
 	}
+
 }
