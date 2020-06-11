@@ -123,6 +123,7 @@ public class ZombieWorld extends World {
 			}	
 			return true;
 		}
+		currentStatus = GameStatus.LOST;
 		return false;
 	}
 	
