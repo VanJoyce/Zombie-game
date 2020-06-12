@@ -21,6 +21,7 @@ public class DisplayActionSubmenuShotgun extends Action{
 	
 	@Override
 	public String execute(Actor actor, GameMap map) {
+		String string;
 		// TODO Auto-generated method stub
 		if (weaponType.isInstance(Shotgun.class)){
 		subMenuActions.add(new ShotgunAttack(display));//shotgun special attack
@@ -30,16 +31,17 @@ public class DisplayActionSubmenuShotgun extends Action{
 			subMenuActions.add(new RiffleAttack(display));//rifle special attack);
 		}
 		*/
-		System.out.println(menuDescription(actor));
+		string=menuDescription(actor);
 		//u want a new list of actions to display
-		subMenu.showMenu(actor, subMenuActions, display);
-		return null;
+		string=string+subMenu.showMenu(actor, subMenuActions, display);
+		return string;
 	}
 
 	@Override
 	public String menuDescription(Actor actor) {
 		// TODO Auto-generated method stub
-		return null;
+		String string=actor+" chose to use ";
+		return string ;
 	}
 
 }

@@ -110,6 +110,15 @@ public class Human extends ZombieActor {
 		return false;
 	}
 	
+	public Weapon getRangedWeapon(Class<?> RangedWeaponType) {
+		for(Item item:inventory) {
+			if(RangedWeaponType.isInstance(item)) {
+				return (Weapon) item;
+			}
+		}
+		return null;
+	}
+	
 	@Override
 	public Weapon getWeapon() {
 		Weapon weapon=highestDamageWeapon();
