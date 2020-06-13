@@ -36,22 +36,22 @@ public class RifleAttackAction extends AttackAction{
 	 * When the ammo hits 0, ammo is remove from the inventory.
 	 */
 	public String execute(Actor actor, GameMap map) {
+
+		String result="";
 		int aim=((SniperRifle)rifle).getAim();
 		HumanAttackAction attack=new HumanAttackAction(target);
 
 		if(aim==0) {
-			attack.execute(actor,map,rifle, 0.5);
+			result+=attack.execute(actor,map,rifle, 0.5);
 		}
-		if(aim==1) {
-			attack.execute(actor,map,rifle, 0.9);
+		else if(aim==1) {
+			result+=attack.execute(actor,map,rifle, 0.9);
 		}
-		if(aim==2) {
-			attack.execute(actor,map,rifle, 1);
+		else {
+			result+=attack.execute(actor,map,rifle, 1);
 		}
 		
-		int damage = rifle.damage();
 		((SniperRifle)rifle).reset();
-		String result =  isDead(actor,target,rifle,damage,map);
 		
 		ammo.shotFired();
 		if (ammo.getRounds() == 0) {
