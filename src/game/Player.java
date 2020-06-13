@@ -54,7 +54,7 @@ public class Player extends Human {
 //		}
 		
 		if(this.hasAmmunition(AmmunitionShotgun.class)&&this.hasRangedWeapon(Shotgun.class)) {
-			actions.add(new ShotgunAction(display));
+			actions.add(new ShotgunAction(display,this.getRangedWeapon(Shotgun.class)));
 		}
 		
 		actions.add(new QuitAction(zombieWorld));

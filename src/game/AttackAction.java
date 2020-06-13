@@ -75,7 +75,6 @@ public class AttackAction extends Action {
 	
 	
 	public String isDead(Actor actor,Actor target,Weapon weapon, int damage,GameMap map) {
-		
 		String result = actor + " " + weapon.verb() + " " + target + " for " + damage + " damage.";
 		
 		target.hurt(damage);

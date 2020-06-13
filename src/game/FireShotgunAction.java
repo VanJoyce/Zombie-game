@@ -2,12 +2,14 @@ package game;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.Exit;
 import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Location;
+import edu.monash.fit2099.engine.Weapon;
 
 public class FireShotgunAction extends Action{
 	private Exit direction;
@@ -20,20 +22,53 @@ public class FireShotgunAction extends Action{
 	static final String WEST = "4";
 	static final String NORTH_WEST = "7";
 	
-	public FireShotgunAction(Exit e) {
+	private Weapon shotgun;
+	protected Random rand = new Random();
+	
+	public FireShotgunAction(Exit e,Weapon shotgun) {
 		// check GameMap for where they add the string
 		this.direction = e;
+		this.shotgun=shotgun;
 	}
 	
+
 	@Override
 	public String execute(Actor actor, GameMap map) {
-		String result = "";
+		String result = menuDescription(actor);
 		List<Location> range = getRange(map);
+		//if all actor dont have the same percentage of getting hit: add double here
+		Double getDouble=rand.nextDouble();
 		for (Location l : range) {
 			// add attack action if actor is here (75% chance)
-			map.at(l.x(), l.y()).setGround(new Fence()); // just for visualisation
-		}
+			//map.at(l.x(), l.y()).setGround(new Fence()); // just for visualisation
+			
+			//if all actor dont have the same percentage of getting hit: add double here
+			 //Double getDouble=rand.nextDouble();
+			 if (l.containsAnActor()){
+				 if (getDouble<1.00){
+				    Actor target=l.getActor();
+				    
+				    //if no zombie limbs are falling out, then:
+				    ShotgunAttackAction attack=new ShotgunAttackAction(target);
+				    
+				   /*
+				    target instanceof Zombie
+				    if (target.isInstance(Zombie)){
+				    	ZombieAttackAction attack=new ZombieAttackAction(target);
+				    }
+				    
+					else{
+						AttackAction attack=new ShotgunAttackAction(target);
+					}
+					*/
+					/////
+					result=result+"\n"+attack.execute(actor, map,shotgun,30);
+				      
+				 }
+			
+			 }
 		
+		}
 		return result;
 	}
 

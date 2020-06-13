@@ -9,9 +9,13 @@ public class ShotgunAttackAction extends AttackAction{
 	public ShotgunAttackAction(Actor target) {
 		super(target);
 	}
-	
 	public String execute(Actor actor, GameMap map,Weapon weapon) {
 		int damage = weapon.damage();
 		return isDead(actor,target,weapon,damage,map);
+	}
+	
+	public String execute(Actor actor, GameMap map,Weapon weapon,int damage) {
+		return isDead(actor,target,weapon,damage,map);
+
 	}
 }
