@@ -22,12 +22,11 @@ public class DisplayRifleAction extends Action{
 	Actions shootDirections = new Actions();
 	protected RangedWeapon rifle;
 	
-	private String targetName; 
-	private int maxRange;
+	private int maxRange=40;
 	private HashSet<Location> visitedLocations = new HashSet<Location>();
 	
 	
-	public DisplayRifleAction(Display display, RangedWeapon rangedWeapon) {
+	public DisplayRifleAction(Display display, RangedWeapon rifle) {
 		// TODO Auto-generated constructor stub
 		this.display = display;
 		this.rifle=rifle;
@@ -36,7 +35,7 @@ public class DisplayRifleAction extends Action{
 	@Override
 	public String menuDescription(Actor actor) {
 		// TODO Auto-generated method stub
-		return actor+" fires the rifle";
+		return actor+" use rifle.";
 	}
 	
 	@Override
