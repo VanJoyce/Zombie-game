@@ -35,7 +35,7 @@ public class RifleAttackAction extends AttackAction{
 	 * If the aim is 2, it is certain that it is a successful attack with a instant kill.
 	 * When the ammo hits 0, ammo is remove from the inventory.
 	 */
-	public String execute(Actor actor, GameMap map,Weapon weapon) {
+	public String execute(Actor actor, GameMap map) {
 		int aim=((SniperRifle)rifle).getAim();
 		HumanAttackAction attack=new HumanAttackAction(target);
 
@@ -49,9 +49,9 @@ public class RifleAttackAction extends AttackAction{
 			attack.execute(actor,map,rifle, 1);
 		}
 		
-		int damage = weapon.damage();
+		int damage = rifle.damage();
 		((SniperRifle)rifle).reset();
-		String result =  isDead(actor,target,weapon,damage,map);
+		String result =  isDead(actor,target,rifle,damage,map);
 		
 		ammo.shotFired();
 		if (ammo.getRounds() == 0) {

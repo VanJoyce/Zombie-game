@@ -16,10 +16,11 @@ public class DisplayRifleSpecialAction extends Action{
 	private Ammunition ammo;
 	private Actor target;
 	
-	public DisplayRifleSpecialAction(Actor target,RangedWeapon rifle,Ammunition ammo) {
+	public DisplayRifleSpecialAction(Actor target,RangedWeapon rifle,Ammunition ammo,Display display) {
 		this.target=target;
 		this.rifle=rifle;
 		this.ammo=ammo;
+		this.display=display;
 	}
 	
 	public String execute(Actor actor, GameMap map) {
