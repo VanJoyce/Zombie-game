@@ -8,16 +8,20 @@ import edu.monash.fit2099.engine.Display;
 import edu.monash.fit2099.engine.GameMap;
 
 public class RiffleAction extends Action{
-	private Display display;
-	private int counter;
-	private ArrayList<Integer> aimArray=new ArrayList<Integer>(3);
+	private Actor target;
+	private int aiming;
+	private ArrayList<Actor> aimArray=new ArrayList<Actor>(3);
 	
-	public RiffleAction(Display display) {
-		this.display=display;
+	public RiffleAction(Actor target) {
+		this.target=target;
 	}
 	
 	@Override
 	public String execute(Actor actor, GameMap map) {
+		String result="";
+		if(target==aimArray.get(aimArray.size()-1)) {
+			if()
+		}
 		// TODO Auto-generated method stub
 		return null;
 	}
