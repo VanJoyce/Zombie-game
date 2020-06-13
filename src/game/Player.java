@@ -57,6 +57,10 @@ public class Player extends Human {
 			actions.add(new ShotgunAction(display,this.getRangedWeapon(Shotgun.class)));
 		}
 		
+		if(this.hasAmmunition(AmmunitionRifle.class)&&this.hasRangedWeapon(SniperRifle.class)) {
+			actions.add(new ShotgunAction(display,this.getRangedWeapon(Shotgun.class)));
+		}
+		
 		actions.add(new QuitAction(zombieWorld));
 		
 		// Handle multi-turn Actions
