@@ -55,7 +55,8 @@ public class DisplayRifleAction extends Action{
 			Location there = search(layer);
 			if (there != null && there.getActor()!=null ) {		
 				//want to attack and aim
-				shootDirections.add(new RiffleAction(there.getActor()));
+				shootDirections.add(new RiffleAimAction(there.getActor(),rifle));
+				shootDirections.add(new RiffleAttackAction(there.getActor(),rifle));
 			}
 		}
 		
