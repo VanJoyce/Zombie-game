@@ -36,10 +36,12 @@ public class DisplayRifleAction extends Action{
 	@Override
 	public String menuDescription(Actor actor) {
 		// TODO Auto-generated method stub
-		return actor+" fires the shotgun";
+		return actor+" fires the rifle";
 	}
 	
-	private Action hunt(Actor actor, Location here) {
+	@Override
+	public String execute(Actor actor, GameMap map) {
+		Location here=map.locationOf(actor);
 		visitedLocations.clear();
 		ArrayList<Location> now = new ArrayList<Location>();
 		
@@ -51,12 +53,17 @@ public class DisplayRifleAction extends Action{
 		for (int i = 0; i<maxRange; i++) {
 			layer = getNextLayer(actor, layer);
 			Location there = search(layer);
-			if (there != null)
-				return there.getMoveAction(actor, "towards a " + targetName, null);
+			if (there != null && there.getActor()!=null ) {		
+				shootDirections.add(new RifleAction(there.getActor()));
+			}
 		}
-
-		return null;
+		
+		Action action=submenu.showMenu(actor, shootDirections, display);
+		return action.execute(actor, map);
 	}
+	
+
+	
 
 	private ArrayList<ArrayList<Location>> getNextLayer(Actor actor, ArrayList<ArrayList<Location>> layer) {
 		ArrayList<ArrayList<Location>> nextLayer = new ArrayList<ArrayList<Location>>();
@@ -91,33 +98,6 @@ public class DisplayRifleAction extends Action{
 				here.getActor().hasCapability(ZombieCapability.UNDEAD));
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-
-
-
-
-
-@Override
-public String execute(Actor actor, GameMap map) {
-	List<Exit> exits = new ArrayList<Exit>(map.locationOf(actor).getExits());
-	
-	
-	for (Exit e: exits) {
-		shootDirections.add(new FireShotgunAction(e,rifle));
-	}
-	Action action = submenu.showMenu(actor, shootDirections, display);
-	return action.execute(actor, map);
-}
 
 
 }
