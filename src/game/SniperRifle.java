@@ -1,11 +1,10 @@
 package game;
 
-import edu.monash.fit2099.engine.WeaponItem;
 
-public class SniperRifle extends WeaponItem{
+public class SniperRifle extends RangedWeapon{
 
 	public SniperRifle() {
-		super("SniperRifle", 'R', 20, "wacks with SniperRifle");
+		super("SniperRifle", '}');
 		// TODO Auto-generated constructor stub
 	}
 
