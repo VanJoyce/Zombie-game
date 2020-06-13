@@ -1,12 +1,9 @@
 package game;
 
-import edu.monash.fit2099.engine.WeaponItem;
 
-public class Shotgun extends WeaponItem{
+public class Shotgun extends RangedWeapon{
 
 	public Shotgun() {
-		super("Shotgun", 'S', 20, "wacks with shotgun");
-		// TODO Auto-generated constructor stub
+		super("shotgun", '|');
 	}
-
 }

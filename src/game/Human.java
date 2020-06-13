@@ -110,10 +110,10 @@ public class Human extends ZombieActor {
 		return false;
 	}
 	
-	public Weapon getRangedWeapon(Class<?> RangedWeaponType) {
+	public RangedWeapon getRangedWeapon(Class<?> RangedWeaponType) {
 		for(Item item:inventory) {
 			if(RangedWeaponType.isInstance(item)) {
-				return (Weapon) item;
+				return (RangedWeapon) item;
 			}
 		}
 		return null;

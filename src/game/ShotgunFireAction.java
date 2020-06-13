@@ -9,10 +9,11 @@ import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.Exit;
 import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Location;
-import edu.monash.fit2099.engine.Weapon;
 
-public class FireShotgunAction extends Action{
+public class ShotgunFireAction extends Action{
 	private Exit direction;
+	private RangedWeapon shotgun;
+	protected Random rand = new Random();
 	static final String NORTH = "8";
 	static final String NORTH_EAST = "9";
 	static final String EAST = "6";
@@ -22,55 +23,28 @@ public class FireShotgunAction extends Action{
 	static final String WEST = "4";
 	static final String NORTH_WEST = "7";
 	
-	private Weapon shotgun;
-	protected Random rand = new Random();
-	
-	public FireShotgunAction(Exit e,Weapon shotgun) {
-		// check GameMap for where they add the string
+	public ShotgunFireAction(Exit e, RangedWeapon shotgun) {
 		this.direction = e;
-		this.shotgun=shotgun;
+		this.shotgun = shotgun;
+		shotgun.addCapability(RangedWeaponCapability.SHOOT);
 	}
 	
 
 	@Override
 	public String execute(Actor actor, GameMap map) {
-		String result = menuDescription(actor);
+		String result = actor + " fires the shotgun " + direction.getName();
 		List<Location> range = getRange(map);
-		//if all actor dont have the same percentage of getting hit: add double here
-		Double getDouble=rand.nextDouble();
 		for (Location l : range) {
-			// add attack action if actor is here (75% chance)
-			//map.at(l.x(), l.y()).setGround(new Fence()); // just for visualisation
-			
-			//if all actor dont have the same percentage of getting hit: add double here
-			 //Double getDouble=rand.nextDouble();
 			 if (l.containsAnActor()){
-				 if (getDouble<1.00){
-				    Actor target=l.getActor();
-				    
-				    //if no zombie limbs are falling out, then:
-				    ShotgunAttackAction attack=new ShotgunAttackAction(target);
-				    
-				   /*
-				    target instanceof Zombie
-				    if (target.isInstance(Zombie)){
-				    	ZombieAttackAction attack=new ZombieAttackAction(target);
-				    }
-				    
-					else{
-						AttackAction attack=new ShotgunAttackAction(target);
-					}
-					*/
-					/////
-					result=result+"\n"+attack.execute(actor, map,shotgun,30);
-				      
-				 }
+			    Actor target=l.getActor();
+			    HumanAttackAction shoot = new HumanAttackAction(target);
+			    result += "\n" + shoot.execute(actor, map, shotgun, 0.5);      
+			 	}
 			
 			 }
-		
-		}
+		shotgun.removeCapability(RangedWeaponCapability.SHOOT);
 		return result;
-	}
+		}
 
 	@Override
 	public String menuDescription(Actor actor) {

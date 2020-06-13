@@ -49,12 +49,8 @@ public class Player extends Human {
 		//Player should be able to interact with the ground they're standing on
 		actions.add(map.locationOf(this).getGround().allowableActions(this, map.locationOf(this), ""));
 		
-//		if(this.hasAmmunition(AmmunitionShotgun.class)&&this.hasRangedWeapon(Shotgun.class)) {
-//			actions.add(new DisplayActionSubmenuShotgun(Shotgun.class));
-//		}
-		
 		if(this.hasAmmunition(AmmunitionShotgun.class)&&this.hasRangedWeapon(Shotgun.class)) {
-			actions.add(new ShotgunAction(display,this.getRangedWeapon(Shotgun.class)));
+			actions.add(new DisplayShotgunAction(display,this.getRangedWeapon(Shotgun.class)));
 		}
 		
 		if(this.hasAmmunition(AmmunitionRifle.class)&&this.hasRangedWeapon(SniperRifle.class)) {

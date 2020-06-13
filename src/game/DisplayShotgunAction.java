@@ -14,13 +14,13 @@ import edu.monash.fit2099.engine.Location;
 import edu.monash.fit2099.engine.Menu;
 import edu.monash.fit2099.engine.Weapon;
 
-public class ShotgunAction extends Action{
+public class DisplayShotgunAction extends Action{
 		Menu submenu = new Menu();
 		Display display;
 		Actions shootDirections = new Actions();
-		protected Weapon shotgun;
+		protected RangedWeapon shotgun;
 		
-		public ShotgunAction(Display display,Weapon shotgun) {
+		public DisplayShotgunAction(Display display, RangedWeapon shotgun) {
 			this.display = display;
 			this.shotgun=shotgun;
 		}
@@ -29,9 +29,8 @@ public class ShotgunAction extends Action{
 		public String execute(Actor actor, GameMap map) {
 			List<Exit> exits = new ArrayList<Exit>(map.locationOf(actor).getExits());
 			
-			
 			for (Exit e: exits) {
-				shootDirections.add(new FireShotgunAction(e,shotgun));
+				shootDirections.add(new ShotgunFireAction(e, shotgun));
 			}
 			Action action = submenu.showMenu(actor, shootDirections, display);
 			return action.execute(actor, map);
