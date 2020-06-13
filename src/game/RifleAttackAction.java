@@ -62,6 +62,9 @@ public class RifleAttackAction extends AttackAction{
 		return result;
 		
 	}
+	public String menuDescription(Actor actor) {
+		return actor+" Fire the rifle at" + target;
+	}
 	
 	
 

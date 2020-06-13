@@ -25,7 +25,7 @@ public class DisplayRifleAction extends Action{
 	private Menu submenu = new Menu();
 	private Display display;
 	private Actions shootTarget = new Actions();
-	private RangedWeapon rifle;
+	protected RangedWeapon rifle;
 	private Ammunition ammo;
 	
 	private int maxRange=100;
