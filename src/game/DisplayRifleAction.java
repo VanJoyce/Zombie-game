@@ -25,7 +25,7 @@ public class DisplayRifleAction extends Action{
 	private Menu submenu = new Menu();
 	private Display display;
 	private Actions shootTarget = new Actions();
-	private RangedWeapon rifle;
+	protected RangedWeapon rifle;
 	private Ammunition ammo;
 	
 	private int maxRange=100;
@@ -52,7 +52,7 @@ public class DisplayRifleAction extends Action{
 		//System.out.println(getLocation(actor,loc).size());
 		
 		for (Location l:getLocation(actor,loc)) {
-			shootTarget.add(new DisplayRifleSpecialAction(l.getActor(),rifle,ammo));
+			shootTarget.add(new DisplayRifleSpecialAction(l.getActor(),rifle,ammo,display));
 		}
 		Action action = submenu.showMenu(actor, shootTarget, display);
 		

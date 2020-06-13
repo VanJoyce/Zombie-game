@@ -12,19 +12,23 @@ public class DisplayRifleSpecialAction extends Action{
 	private Menu submenu = new Menu();
 	private Display display;
 	private Actions chooseAction = new Actions();
-	private RangedWeapon rifle;
+	protected RangedWeapon rifle;
 	private Ammunition ammo;
 	private Actor target;
 	
-	public DisplayRifleSpecialAction(Actor target,RangedWeapon rifle,Ammunition ammo) {
+	public DisplayRifleSpecialAction(Actor target,RangedWeapon rifle,Ammunition ammo,Display display) {
 		this.target=target;
+		this.rifle=rifle;
+		this.ammo=ammo;
+		this.display=display;
 	}
 	
 	public String execute(Actor actor, GameMap map) {
 		// TODO Auto-generated method stub
 		chooseAction.add(new RifleAimAction(target,rifle));
 		chooseAction.add(new RifleAttackAction(target,rifle, ammo));
-		return null;
+		Action action = submenu.showMenu(actor, chooseAction, display);
+		return action.execute(actor, map);
 	}
 	@Override
 	public String menuDescription(Actor actor) {
