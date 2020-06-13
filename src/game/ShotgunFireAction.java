@@ -18,7 +18,6 @@ import edu.monash.fit2099.engine.Location;
 public class ShotgunFireAction extends Action{
 	private Exit direction;
 	private RangedWeapon shotgun;
-	private Random rand = new Random();
 	static final String NORTH = "8";
 	static final String NORTH_EAST = "9";
 	static final String EAST = "6";
@@ -67,6 +66,12 @@ public class ShotgunFireAction extends Action{
 		return result;
 		}
 
+	/**
+	 * Returns a string saying which direction to fire the shotgun.
+	 * 
+	 * @param actor the actor firing the shotgun
+	 * @return 		a string saying to fire the shotgun in the direction.
+	 */
 	@Override
 	public String menuDescription(Actor actor) {
 		return "Fire the shotgun " + direction.getName();
@@ -102,10 +107,10 @@ public class ShotgunFireAction extends Action{
 			}
 			
 			int width;
-			for (int m = 0; m < 3; m++) {
-				width = -m;
-				for (int n = 0; n < (m*2+1); n++) {
-					range.add(map.at(x + width, y + (up * m)));
+			for (int height = 0; height < 3; height++) {
+				width = -height;
+				for (int count = 0; count < (height*2+1); count++) {
+					range.add(map.at(x + width, y + (up * height)));
 					width++;
 				}
 			}
@@ -117,10 +122,10 @@ public class ShotgunFireAction extends Action{
 			}
 			
 			int height;
-			for (int m = 0; m < 3; m++) {
-				height = -m;
-				for (int n = 0; n < (m*2+1); n++) {
-					range.add(map.at(x + (right * m), y + height));
+			for (int width = 0; width < 3; width++) {
+				height = -width;
+				for (int count = 0; count < (width*2+1); count++) {
+					range.add(map.at(x + (right * width), y + height));
 					height++;
 				}
 			}
@@ -138,9 +143,9 @@ public class ShotgunFireAction extends Action{
 				up = 1;
 				right = -1;
 			}
-			for (int i = 0; i < 3; i++) {
-				for (int j = 0; j < 3; j++) {
-					range.add(map.at(x + (right*i), y + (up*j)));
+			for (int width = 0; width < 3; width++) {
+				for (int height = 0; height < 3; height++) {
+					range.add(map.at(x + (right*width), y + (up*height)));
 				}
 			}
 		}
