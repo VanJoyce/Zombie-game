@@ -14,15 +14,6 @@ public class HumanAttackAction extends AttackAction{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public String execute(Actor actor,GameMap map) {
-		Weapon weapon = actor.getWeapon();
-		return execute(actor,map,weapon);
-	}
-	
-	public String execute(Actor actor, GameMap map, Weapon weapon) {
-		return execute(actor, map, weapon, 0.5);
-	}
-	
 	public String execute(Actor actor,GameMap map,Weapon weapon, Double chances) {
 		if (rand.nextDouble() > chances){
 			return actor + " misses " + target + ".";

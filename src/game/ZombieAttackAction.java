@@ -25,6 +25,7 @@ public class ZombieAttackAction extends AttackAction{
 				actor.heal(5);
 			}
 		}
+		
 		else if(weapon.verb().equals("punches")) {
 			if (rand.nextBoolean()) {
 				return actor + " misses " + target + ".";
@@ -33,6 +34,9 @@ public class ZombieAttackAction extends AttackAction{
 		
 		int damage = weapon.damage();
 
+		((Human)target).resetRifle();
+		
+		
 		return super.isDead(actor, target, weapon, damage, map);
 
 	}

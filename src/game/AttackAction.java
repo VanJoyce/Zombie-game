@@ -54,9 +54,9 @@ public class AttackAction extends Action {
 	 *  
 	 *  
 	 */
-	
-	public String execute(Actor actor, GameMap map,Weapon weapon) {
-		if (rand.nextBoolean()) {
+		
+	public String execute(Actor actor, GameMap map,Weapon weapon,Double chances) {
+		if (rand.nextDouble() > chances){
 			return actor + " misses " + target + ".";
 		}
 		int damage = weapon.damage();
@@ -71,6 +71,10 @@ public class AttackAction extends Action {
 	
 	public String execute(Actor actor,GameMap map,Weapon weapon,int damage) {
 		return isDead(actor,target,weapon,damage,map);
+	}
+	
+	public String execute(Actor actor, GameMap map, Weapon weapon) {
+		return execute(actor, map, weapon, 0.5);
 	}
 	
 	

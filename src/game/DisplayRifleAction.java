@@ -20,14 +20,14 @@ public class DisplayRifleAction extends Action{
 	Menu submenu = new Menu();
 	Display display;
 	Actions shootDirections = new Actions();
-	protected Weapon rifle;
+	protected RangedWeapon rifle;
 	
 	private String targetName; 
 	private int maxRange;
 	private HashSet<Location> visitedLocations = new HashSet<Location>();
 	
 	
-	public DisplayRifleAction(Display display, Weapon rangedWeapon) {
+	public DisplayRifleAction(Display display, RangedWeapon rangedWeapon) {
 		// TODO Auto-generated constructor stub
 		this.display = display;
 		this.rifle=rifle;

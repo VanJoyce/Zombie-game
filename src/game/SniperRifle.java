@@ -27,14 +27,18 @@ public class SniperRifle extends RangedWeapon{
 	
 	public int getAim() {return aiming;}
 	public Actor getCurrentTarget() {return aimArray.get(aimArray.size()-1);}
-	public int getDamage() {
+	
+	@Override
+	public int damage() {
 		if(aiming==0) {return this.damage();}
 		else if(aiming==1) {return this.damage()*2;}
 		else {return 100;}
 	}
 	
 	public void reset() {
-		
+		aiming=0;
+		aimArray.clear();
+		this.removeCapability(RangedWeaponCapability.SHOOT);
 	}
 
 }

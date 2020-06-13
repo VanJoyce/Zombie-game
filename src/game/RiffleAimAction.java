@@ -11,10 +11,10 @@ public class RiffleAimAction extends Action{
 
 	private Actor target;
 	
-	private Weapon rifle;
+	private RangedWeapon rifle;
 	
 	
-	public RiffleAimAction(Actor target, Weapon rifle) {
+	public RiffleAimAction(Actor target, RangedWeapon rifle) {
 		// TODO Auto-generated constructor stub
 		this.target=target;
 		this.rifle=rifle;

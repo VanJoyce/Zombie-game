@@ -142,4 +142,10 @@ public class Human extends ZombieActor {
 		return weapon;
 	}
 	
+	public void resetRifle() {
+		if (hasRangedWeapon(SniperRifle.class)) {
+			SniperRifle sniper=(SniperRifle) getRangedWeapon(SniperRifle.class);
+			sniper.reset();
+		}
+	}
 }
