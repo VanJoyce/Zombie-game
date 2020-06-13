@@ -26,6 +26,7 @@ public class RifleAimAction extends Action{
 		// TODO Auto-generated constructor stub
 		this.target=target;
 		this.rifle=rifle;
+		System.out.println(rifle);
 	}
 	/**
 	 * calls the aim method in SniperRifle

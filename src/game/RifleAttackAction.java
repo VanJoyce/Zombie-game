@@ -11,7 +11,7 @@ import edu.monash.fit2099.engine.Weapon;
  *
  */
 public class RifleAttackAction extends AttackAction{
-	private SniperRifle rifle;
+	private RangedWeapon rifle;
 	private Random rand = new Random();
 	private Ammunition ammo;
 	
@@ -23,8 +23,9 @@ public class RifleAttackAction extends AttackAction{
 	 */
 	public RifleAttackAction(Actor target, RangedWeapon rifle, Ammunition ammo) {
 		super(target);
-		this.rifle=(SniperRifle)rifle;
+		this.rifle=rifle;
 		this.ammo = ammo;
+		//System.out.println(rifle);
 		rifle.addCapability(RangedWeaponCapability.SHOOT);
 	}
 	
@@ -35,7 +36,7 @@ public class RifleAttackAction extends AttackAction{
 	 * When the ammo hits 0, ammo is remove from the inventory.
 	 */
 	public String execute(Actor actor, GameMap map,Weapon weapon) {
-		int aim=rifle.getAim();
+		int aim=((SniperRifle)rifle).getAim();
 		HumanAttackAction attack=new HumanAttackAction(target);
 
 		if(aim==0) {
@@ -49,7 +50,7 @@ public class RifleAttackAction extends AttackAction{
 		}
 		
 		int damage = weapon.damage();
-		rifle.reset();
+		((SniperRifle)rifle).reset();
 		String result =  isDead(actor,target,weapon,damage,map);
 		
 		ammo.shotFired();
