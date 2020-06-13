@@ -119,7 +119,11 @@ public class ShotgunFireAction extends Action{
 			for (int height = 0; height < 3; height++) {
 				width = -height;
 				for (int count = 0; count < (height*2+1); count++) {
-					range.add(map.at(x + width, y + (up * height)));
+					try {
+						range.add(map.at(x + width, y + (up * height)));
+					} catch (Exception e) {
+						continue;
+					}
 					width++;
 				}
 			}
@@ -134,7 +138,11 @@ public class ShotgunFireAction extends Action{
 			for (int width = 0; width < 3; width++) {
 				height = -width;
 				for (int count = 0; count < (width*2+1); count++) {
-					range.add(map.at(x + (right * width), y + height));
+					try {
+						range.add(map.at(x + (right * width), y + height));
+					} catch (Exception e) {
+						continue;
+					}
 					height++;
 				}
 			}
@@ -154,7 +162,11 @@ public class ShotgunFireAction extends Action{
 			}
 			for (int width = 0; width < 3; width++) {
 				for (int height = 0; height < 3; height++) {
-					range.add(map.at(x + (right*width), y + (up*height)));
+					try {
+						range.add(map.at(x + (right*width), y + (up*height)));
+					} catch (Exception e) {
+						continue;
+					}
 				}
 			}
 		}
