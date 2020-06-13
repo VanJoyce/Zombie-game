@@ -223,6 +223,9 @@ public class Zombie extends ZombieActor {
 		counter+=1;
 	}
 	
+	/**
+	 * It overrides getAllowableAction in zombieActors. Now, zombie is attacked by HumanAttackAction.
+	 */
 	@Override
 	public Actions getAllowableActions(Actor otherActor, String direction, GameMap map) {
 		Actions list = super.getAllowableActions(this, direction, map);

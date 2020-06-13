@@ -15,6 +15,13 @@ public class ZombieAttackBehaviour extends AttackBehaviour {
 		super(ZombieCapability.ALIVE);
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+	/**
+	 * This code was modified. It was originally AttackAtction. It is now ZombieAttackAction
+	 * If the actor is a zombie, it will either have a chance to punch or to bite. If a successful bite occurs, the
+	 * zombie heals by 5 points.
+	 */
 	public Action getAction(Actor actor, GameMap map) {
 		// Is there an attackable Actor next to me?
 		List<Exit> exits = new ArrayList<Exit>(map.locationOf(actor).getExits());

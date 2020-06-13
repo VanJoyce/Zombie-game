@@ -54,7 +54,7 @@ public class Player extends Human {
 		}
 		
 		if(this.hasAmmunition(AmmunitionRifle.class)&&this.hasRangedWeapon(SniperRifle.class)) {
-			actions.add(new DisplayRifleAction(display,this.getRangedWeapon(Shotgun.class), this.getAmmunition(AmmunitionRifle.class)));
+			actions.add(new DisplayRifleAction(display,this.getRangedWeapon(SniperRifle.class), this.getAmmunition(AmmunitionRifle.class)));
 		}
 		
 		actions.add(new QuitAction(zombieWorld));
@@ -62,6 +62,10 @@ public class Player extends Human {
 		// Handle multi-turn Actions
 		if (lastAction.getNextAction() != null)
 			return lastAction.getNextAction();
+		
+		if(lastAction instanceof RiffleAttackAction ==false) {
+			this.resetRifle();
+		}
 		return menu.showMenu(this, actions, display);
 	}
 	

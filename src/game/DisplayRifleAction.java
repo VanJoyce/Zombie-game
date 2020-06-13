@@ -14,16 +14,21 @@ import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Location;
 import edu.monash.fit2099.engine.Menu;
 import edu.monash.fit2099.engine.Weapon;
-
+/**This is a class to represent the action to display the submenu and all the actor it can shoot
+ * within a range
+ * 
+ * @author Jaclyn
+ *
+ */
 public class DisplayRifleAction extends Action{
 	
-	Menu submenu = new Menu();
-	Display display;
-	Actions shootDirections = new Actions();
-	protected RangedWeapon rifle;
+	private Menu submenu = new Menu();
+	private Display display;
+	private Actions shootDirections = new Actions();
+	private RangedWeapon rifle;
 	private Ammunition ammo;
 	
-	private int maxRange=40;
+	private int maxRange=100;
 	private HashSet<Location> visitedLocations = new HashSet<Location>();
 	
 	
@@ -42,6 +47,7 @@ public class DisplayRifleAction extends Action{
 	
 	@Override
 	public String execute(Actor actor, GameMap map) {
+		System.out.println("Hello");
 		Location here=map.locationOf(actor);
 		visitedLocations.clear();
 		ArrayList<Location> now = new ArrayList<Location>();
@@ -54,19 +60,21 @@ public class DisplayRifleAction extends Action{
 		for (int i = 0; i<maxRange; i++) {
 			layer = getNextLayer(actor, layer);
 			Location there = search(layer);
+			System.out.println(there);
 			if (there != null && there.getActor()!=null ) {		
 				//want to attack and aim
 				shootDirections.add(new RiffleAimAction(there.getActor(),rifle));
 				shootDirections.add(new RiffleAttackAction(there.getActor(),rifle, ammo));
 			}
 		}
-		
 		Action action=submenu.showMenu(actor, shootDirections, display);
 		return action.execute(actor, map);
 	}
 	
 
-	
+	/**The next 3 methods were taken from hunt behaviour.
+	 * 
+	 */
 
 	private ArrayList<ArrayList<Location>> getNextLayer(Actor actor, ArrayList<ArrayList<Location>> layer) {
 		ArrayList<ArrayList<Location>> nextLayer = new ArrayList<ArrayList<Location>>();
