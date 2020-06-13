@@ -24,16 +24,19 @@ public class DisplayShotgunAction extends Action{
 		private Display display;
 		private Actions shootDirections = new Actions();
 		private RangedWeapon shotgun;
+		private Ammunition ammo;
 		
 		/**
 		 * Constructor.
 		 * 
 		 * @param display	the display the submenu will be on
 		 * @param shotgun	the shotgun used to shoot
+		 * @param ammo		the ammunition used to fire
 		 */
-		public DisplayShotgunAction(Display display, RangedWeapon shotgun) {
+		public DisplayShotgunAction(Display display, RangedWeapon shotgun, Ammunition ammo) {
 			this.display = display;
 			this.shotgun=shotgun;
+			this.ammo = ammo;
 		}
 		
 		/**
@@ -49,9 +52,10 @@ public class DisplayShotgunAction extends Action{
 			List<Exit> exits = new ArrayList<Exit>(map.locationOf(actor).getExits());
 			
 			for (Exit e: exits) {
-				shootDirections.add(new ShotgunFireAction(e, shotgun));
+				shootDirections.add(new ShotgunFireAction(e, shotgun, ammo));
 			}
 			Action action = submenu.showMenu(actor, shootDirections, display);
+		
 			return action.execute(actor, map);
 		}
 		

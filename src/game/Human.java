@@ -97,6 +97,21 @@ public class Human extends ZombieActor {
 		return false;
 	}
 	
+	/**
+	 * Returns ammunition type if it exists in inventory. Otherwise, null.
+	 * 
+	 * @param ammunitionType	the type of ammunition
+	 * @return					the ammunition or null if there is none in the actor's inventory.
+	 */
+	public Ammunition getAmmunition(Class<?> ammunitionType) {
+		for (Item item : this.getInventory()) {
+			if (ammunitionType.isInstance(item)) {
+				return (Ammunition) item;
+			}
+		}
+		return null;
+	}
+	
 	public boolean hasRangedWeapon(Class<?> RangedWeaponType) {
 		for (Item item : this.getInventory()) {
 			if (RangedWeaponType.isInstance(item)) {

@@ -9,10 +9,12 @@ import edu.monash.fit2099.engine.Weapon;
 public class RiffleAttackAction extends AttackAction{
 	private SniperRifle rifle;
 	private Random rand = new Random();
+	private Ammunition ammo;
 	
-	public RiffleAttackAction(Actor target, RangedWeapon rifle) {
+	public RiffleAttackAction(Actor target, RangedWeapon rifle, Ammunition ammo) {
 		super(target);
 		this.rifle=(SniperRifle)rifle;
+		this.ammo = ammo;
 		rifle.addCapability(RangedWeaponCapability.SHOOT);
 	}
 	
@@ -33,7 +35,15 @@ public class RiffleAttackAction extends AttackAction{
 		
 		int damage = weapon.damage();
 		rifle.reset();
-		return isDead(actor,target,weapon,damage,map);
+		String result =  isDead(actor,target,weapon,damage,map);
+		
+		ammo.shotFired();
+		if (ammo.getRounds() == 0) {
+			actor.removeItemFromInventory(ammo);		
+			result += "\nThis ammunition has no more rounds.";
+		}
+		
+		return result;
 		
 	}
 	

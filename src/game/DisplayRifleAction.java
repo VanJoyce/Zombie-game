@@ -21,15 +21,17 @@ public class DisplayRifleAction extends Action{
 	Display display;
 	Actions shootDirections = new Actions();
 	protected RangedWeapon rifle;
+	private Ammunition ammo;
 	
 	private int maxRange=40;
 	private HashSet<Location> visitedLocations = new HashSet<Location>();
 	
 	
-	public DisplayRifleAction(Display display, RangedWeapon rifle) {
+	public DisplayRifleAction(Display display, RangedWeapon rifle, Ammunition ammo) {
 		// TODO Auto-generated constructor stub
 		this.display = display;
 		this.rifle=rifle;
+		this.ammo = ammo;
 	}
 
 	@Override
@@ -55,7 +57,7 @@ public class DisplayRifleAction extends Action{
 			if (there != null && there.getActor()!=null ) {		
 				//want to attack and aim
 				shootDirections.add(new RiffleAimAction(there.getActor(),rifle));
-				shootDirections.add(new RiffleAttackAction(there.getActor(),rifle));
+				shootDirections.add(new RiffleAttackAction(there.getActor(),rifle, ammo));
 			}
 		}
 		

@@ -50,11 +50,11 @@ public class Player extends Human {
 		actions.add(map.locationOf(this).getGround().allowableActions(this, map.locationOf(this), ""));
 		
 		if(this.hasAmmunition(AmmunitionShotgun.class)&&this.hasRangedWeapon(Shotgun.class)) {
-			actions.add(new DisplayShotgunAction(display,this.getRangedWeapon(Shotgun.class)));
+			actions.add(new DisplayShotgunAction(display,this.getRangedWeapon(Shotgun.class), this.getAmmunition(AmmunitionShotgun.class)));
 		}
 		
 		if(this.hasAmmunition(AmmunitionRifle.class)&&this.hasRangedWeapon(SniperRifle.class)) {
-			actions.add(new DisplayRifleAction(display,this.getRangedWeapon(Shotgun.class)));
+			actions.add(new DisplayRifleAction(display,this.getRangedWeapon(Shotgun.class), this.getAmmunition(AmmunitionRifle.class)));
 		}
 		
 		actions.add(new QuitAction(zombieWorld));

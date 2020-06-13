@@ -18,6 +18,7 @@ import edu.monash.fit2099.engine.Location;
 public class ShotgunFireAction extends Action{
 	private Exit direction;
 	private RangedWeapon shotgun;
+	private Ammunition ammo;
 	static final String NORTH = "8";
 	static final String NORTH_EAST = "9";
 	static final String EAST = "6";
@@ -33,22 +34,23 @@ public class ShotgunFireAction extends Action{
 	 * 
 	 * @param e			the direction the shotgun was fired
 	 * @param shotgun	the weapon used to fire
+	 * @param ammo		the ammunition used to fire
 	 */
-	public ShotgunFireAction(Exit e, RangedWeapon shotgun) {
+	public ShotgunFireAction(Exit e, RangedWeapon shotgun, Ammunition ammo) {
 		this.direction = e;
 		this.shotgun = shotgun;
+		this.ammo = ammo;
 		shotgun.addCapability(RangedWeaponCapability.SHOOT);
 	}
 	
 	/**
-	 * For every actor in the range, there's a 75% chance of hitting them.
-	 * RangedWeaponCapability.SHOOT is removed from the shotgun's set of
-	 * capabilities after so that the shotgun knows that it is done firing.
+	 * For every actor in the range, there's a 75% chance of hitting them. RangedWeaponCapability.SHOOT 
+	 * is removed from the shotgun's set of capabilities after so that the shotgun knows that it is done firing.
+	 * If ammo doesn't have anymore rounds, remove from actor's inventory.
 	 * 
 	 * @param actor		the actor firing the shotgun
 	 * @param map		the map the actor is on
-	 * @return			a string saying which direction the actor chooses to shoot in 
-	 * 					and the result of shooting the actors in this range.
+	 * @return			a string saying which direction shotgun is fired in and the result of shooting the actors in this range.
 	 */
 	@Override
 	public String execute(Actor actor, GameMap map) {
@@ -63,6 +65,13 @@ public class ShotgunFireAction extends Action{
 			
 			 }
 		shotgun.removeCapability(RangedWeaponCapability.SHOOT);
+		
+		ammo.shotFired();
+		if (ammo.getRounds() == 0) {
+			actor.removeItemFromInventory(ammo);		
+			result += "\nThis ammunition has no more rounds.";
+		}
+		
 		return result;
 		}
 
