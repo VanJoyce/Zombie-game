@@ -10,10 +10,15 @@ import edu.monash.fit2099.engine.Exit;
 import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Location;
 
+/**
+ * Action class for shooting the shotgun.
+ * @author Vanessa
+ *
+ */
 public class ShotgunFireAction extends Action{
 	private Exit direction;
 	private RangedWeapon shotgun;
-	protected Random rand = new Random();
+	private Random rand = new Random();
 	static final String NORTH = "8";
 	static final String NORTH_EAST = "9";
 	static final String EAST = "6";
@@ -23,13 +28,29 @@ public class ShotgunFireAction extends Action{
 	static final String WEST = "4";
 	static final String NORTH_WEST = "7";
 	
+	/**
+	 * Constructor. Adds capability RangedWeaponCapability.SHOOT to let the item know
+	 * it's currently being used to shoot.
+	 * 
+	 * @param e			the direction the shotgun was fired
+	 * @param shotgun	the weapon used to fire
+	 */
 	public ShotgunFireAction(Exit e, RangedWeapon shotgun) {
 		this.direction = e;
 		this.shotgun = shotgun;
 		shotgun.addCapability(RangedWeaponCapability.SHOOT);
 	}
 	
-
+	/**
+	 * For every actor in the range, there's a 75% chance of hitting them.
+	 * RangedWeaponCapability.SHOOT is removed from the shotgun's set of
+	 * capabilities after so that the shotgun knows that it is done firing.
+	 * 
+	 * @param actor		the actor firing the shotgun
+	 * @param map		the map the actor is on
+	 * @return			a string saying which direction the actor chooses to shoot in 
+	 * 					and the result of shooting the actors in this range.
+	 */
 	@Override
 	public String execute(Actor actor, GameMap map) {
 		String result = actor + " fires the shotgun " + direction.getName();
@@ -38,7 +59,7 @@ public class ShotgunFireAction extends Action{
 			 if (l.containsAnActor()){
 			    Actor target=l.getActor();
 			    HumanAttackAction shoot = new HumanAttackAction(target);
-			    result += "\n" + shoot.execute(actor, map, shotgun, 0.5);      
+			    result += "\n" + shoot.execute(actor, map, shotgun, 0.75);      
 			 	}
 			
 			 }
@@ -51,11 +72,22 @@ public class ShotgunFireAction extends Action{
 		return "Fire the shotgun " + direction.getName();
 	}
 	
+	/**
+	 * Follows the exit's hotkey for user's convenience.
+	 * 
+	 * @return the exit's hotkey
+	 */
 	@Override
 	public String hotkey() {
 		return direction.getHotKey();
 	}
 	
+	/**
+	 * Gets the locations in the range of the direction the shotgun was fired in.
+	 * 
+	 * @param map	the map the shotgun was fired in
+	 * @return		a list of all the map locations within range
+	 */
 	private ArrayList<Location> getRange(GameMap map) {
 		ArrayList<Location> range = new ArrayList<Location>();
 		int x = direction.getDestination().x();
