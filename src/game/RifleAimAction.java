@@ -11,7 +11,7 @@ import edu.monash.fit2099.engine.Weapon;
  * @author Jaclyn
  *
  */
-public class RiffleAimAction extends Action{
+public class RifleAimAction extends Action{
 
 	private Actor target;
 	
@@ -22,7 +22,7 @@ public class RiffleAimAction extends Action{
 	 * @param target the actor getting hurt by the rifle
 	 * @param rifle the actual weapon getting hurt
 	 */
-	public RiffleAimAction(Actor target, RangedWeapon rifle) {
+	public RifleAimAction(Actor target, RangedWeapon rifle) {
 		// TODO Auto-generated constructor stub
 		this.target=target;
 		this.rifle=rifle;

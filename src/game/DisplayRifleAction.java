@@ -24,12 +24,14 @@ public class DisplayRifleAction extends Action{
 	
 	private Menu submenu = new Menu();
 	private Display display;
-	private Actions shootDirections = new Actions();
+	private Actions shootTarget = new Actions();
 	private RangedWeapon rifle;
 	private Ammunition ammo;
 	
 	private int maxRange=100;
 	private HashSet<Location> visitedLocations = new HashSet<Location>();
+	private ArrayList<Location> getAllZombieLocation = new ArrayList<>();
+
 	
 	
 	public DisplayRifleAction(Display display, RangedWeapon rifle, Ammunition ammo) {
@@ -45,30 +47,39 @@ public class DisplayRifleAction extends Action{
 		return actor+" use rifle.";
 	}
 	
-	@Override
-	public String execute(Actor actor, GameMap map) {
-		System.out.println("Hello");
-		Location here=map.locationOf(actor);
+	public String execute(Actor actor,GameMap map) {
+		Location loc=map.locationOf(actor);
+		//System.out.println(getLocation(actor,loc).size());
+		
+		for (Location l:getLocation(actor,loc)) {
+			shootTarget.add(new DisplayRifleSpecialAction(l.getActor(),rifle,ammo));
+		}
+		Action action = submenu.showMenu(actor, shootTarget, display);
+		
+		return action.execute(actor, map);
+		
+		//Action action=submenu.showMenu(actor, shootTarget, display);
+		//return action.execute(actor, map);
+		
+	}
+	public ArrayList<Location> getLocation(Actor actor, Location loc) {
+		ArrayList<Location> returning=new ArrayList<Location>();
+		//Location here=map.locationOf(actor);
 		visitedLocations.clear();
 		ArrayList<Location> now = new ArrayList<Location>();
 		
-		now.add(here);
+		now.add(loc);
 		
 		ArrayList<ArrayList<Location>> layer = new ArrayList<ArrayList<Location>>();
 		layer.add(now);
 
 		for (int i = 0; i<maxRange; i++) {
 			layer = getNextLayer(actor, layer);
-			Location there = search(layer);
-			System.out.println(there);
-			if (there != null && there.getActor()!=null ) {		
-				//want to attack and aim
-				shootDirections.add(new RiffleAimAction(there.getActor(),rifle));
-				shootDirections.add(new RiffleAttackAction(there.getActor(),rifle, ammo));
-			}
+			ArrayList<Location> there = search(layer);
+			getAllZombieLocation.addAll(there);
+
 		}
-		Action action=submenu.showMenu(actor, shootDirections, display);
-		return action.execute(actor, map);
+		return getAllZombieLocation;
 	}
 	
 
@@ -95,13 +106,14 @@ public class DisplayRifleAction extends Action{
 		return nextLayer;
 	}
 	
-	private Location search(ArrayList<ArrayList<Location>> layer) {
+	private ArrayList<Location> search(ArrayList<ArrayList<Location>> layer) {
+		ArrayList<Location> loc=new ArrayList<Location>();
 		for (ArrayList<Location> path : layer) {
 			if (containsTarget(path.get(path.size() - 1))) {
-				return path.get(1);
+				loc.add(path.get(path.size() - 1));
 			}
 		}
-		return null;
+		return loc;
 	}
 	
 	private boolean containsTarget(Location here) {

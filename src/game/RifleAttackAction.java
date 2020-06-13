@@ -10,7 +10,7 @@ import edu.monash.fit2099.engine.Weapon;
  * @author Jaclyn
  *
  */
-public class RiffleAttackAction extends AttackAction{
+public class RifleAttackAction extends AttackAction{
 	private SniperRifle rifle;
 	private Random rand = new Random();
 	private Ammunition ammo;
@@ -21,7 +21,7 @@ public class RiffleAttackAction extends AttackAction{
 	 * @param rifle the weapon itself
 	 * @param ammo the ammunition
 	 */
-	public RiffleAttackAction(Actor target, RangedWeapon rifle, Ammunition ammo) {
+	public RifleAttackAction(Actor target, RangedWeapon rifle, Ammunition ammo) {
 		super(target);
 		this.rifle=(SniperRifle)rifle;
 		this.ammo = ammo;

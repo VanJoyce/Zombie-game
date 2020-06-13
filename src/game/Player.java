@@ -63,7 +63,7 @@ public class Player extends Human {
 		if (lastAction.getNextAction() != null)
 			return lastAction.getNextAction();
 		
-		if(lastAction instanceof RiffleAttackAction ==false) {
+		if(lastAction instanceof RifleAttackAction ==false) {
 			this.resetRifle();
 		}
 		return menu.showMenu(this, actions, display);
